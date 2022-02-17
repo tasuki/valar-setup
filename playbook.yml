@@ -1,0 +1,10 @@
+---
+- import_playbook: playbooks/personalize.yml
+- import_playbook: playbooks/secure.yml
+
+# TODO:
+# git deploy
+# apache
+# letsencrypt
+# websites
+# munin

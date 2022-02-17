@@ -1,0 +1,31 @@
+---
+- name: Personalization - dotrc and things I need to exist
+  hosts: all
+  tasks:
+    - name: Update cache if not updated for a week
+      become: true
+      apt:
+        update_cache: yes
+        cache_valid_time: 604800 # 60 * 60 * 24 * 7
+
+    - name: Install packages
+      become: true
+      apt:
+        pkg:
+          [ curl, bash, git, stow # necessary
+          , tmux, tmuxinator, zsh, vim, htop, jq, fzf, fd-find # cli tools
+          , ripgrep, units, nethogs ]
+
+    - name: Check dotrc dir exists
+      stat:
+        path: ~/dotrc/
+      register: dotrc_dir
+    - name: My own dotrc
+      shell: curl -s https://raw.githubusercontent.com/tasuki/dotrc/master/install.sh | bash
+      when: dotrc_dir.stat.exists == false
+
+    - name: Use zsh as shell
+      become: true
+      user:
+        name: "{{ ansible_user_id }}"
+        shell: /bin/zsh

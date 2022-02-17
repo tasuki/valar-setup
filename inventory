@@ -1,0 +1,7 @@
+[clouds]
+manwe ansible_host=198.211.120.27
+
+[clouds:vars]
+ansible_user=vita
+ansible_port=678
+ansible_python_interpreter=/usr/bin/python3

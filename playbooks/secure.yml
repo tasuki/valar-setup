@@ -1,0 +1,40 @@
+---
+- name: Security - ssh, firehol
+  hosts: all
+  become: true
+  tasks:
+    - name: Change sshd listen port and disable dangerous things
+      lineinfile:
+        path: "/etc/ssh/sshd_config"
+        regex: "^(#)?{{item.key}}"
+        line: "{{item.key}} {{item.value}}"
+        state: present
+      loop:
+        - { key: "Port", value: "678" }
+        - { key: "PermitRootLogin", value: "no" }
+        - { key: "PasswordAuthentication", value: "no" }
+      register: sshd_config
+    - name: Restart ssh
+      service:
+        name: sshd
+        state: restarted
+      when: sshd_config.changed
+
+    - name: Enable ufw
+      community.general.ufw:
+        state: enabled
+        policy: deny
+    - name: Allow tcp ports
+      community.general.ufw:
+        rule: allow
+        port: "{{ item }}"
+        proto: tcp
+      with_items:
+        - "80"  # http
+        - "443" # https
+        - "678" # ssh
+    - name: Allow udp ports for mosh
+      community.general.ufw:
+        rule: allow
+        port: 60000:61000
+        proto: udp
