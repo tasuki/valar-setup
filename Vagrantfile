@@ -1,3 +1,9 @@
+# Hack to determine whether Vagrant has provisioned already
+def provisioned?(vm_name='default', provider='virtualbox')
+  File.exist?(".vagrant/machines/#{vm_name}/#{provider}/action_provision")
+end
+
+
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/focal64"
 
@@ -8,6 +14,8 @@ Vagrant.configure("2") do |config|
     ansible.playbook = "playbook.yml"
   end
 
+  config.vm.network "forwarded_port", guest: 80, host: 1080
+  config.vm.network "forwarded_port", guest: 443, host: 1443
   config.vm.network "forwarded_port", guest: 678, host: 1678
-  config.ssh.guest_port = 678 # TODO comment out when creating VM
+  config.ssh.guest_port = 678 if provisioned?
 end

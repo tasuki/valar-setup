@@ -1,5 +1,5 @@
 ---
-- name: Security - ssh, firehol
+- name: Security - ssh, ufw
   hosts: all
   become: true
   tasks:

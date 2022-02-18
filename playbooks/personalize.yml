@@ -2,11 +2,11 @@
 - name: Personalization - dotrc and things I need to exist
   hosts: all
   tasks:
-    - name: Update cache if not updated for a week
+    - name: Update cache once a day
       become: true
       apt:
         update_cache: yes
-        cache_valid_time: 604800 # 60 * 60 * 24 * 7
+        cache_valid_time: 86400 # 60 * 60 * 24
 
     - name: Install packages
       become: true
