@@ -1,0 +1,8 @@
+projects:
+  - "org.tasuki/www"
+  - "org.tasuki/cv"
+  - "org.tasuki/blog"
+  - "tasuki/www"
+  - "tasuki/domains"
+  - "tasuki/nb-proxy"
+  - "tasuki/sniper"

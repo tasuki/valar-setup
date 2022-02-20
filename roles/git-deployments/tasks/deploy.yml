@@ -1,0 +1,39 @@
+---
+- name: Check git dir exists
+  stat:
+    path: "/var/git/{{ item }}"
+  register: git_dir_stat
+- name: Create git directory
+  file:
+    path: "/var/git/{{ item }}"
+    state: directory
+- name: Create bare repo
+  command: "git init --bare /var/git/{{ item }}"
+  when: git_dir_stat.stat.exists == false
+
+- name: Check www dir exists
+  stat:
+    path: "/var/www/{{ item }}"
+  register: www_dir_stat
+- name: Create www directory
+  file:
+    path: "/var/www/{{ item }}"
+    state: directory
+- name: Create repo
+  command: "git init /var/www/{{ item }}"
+  when: www_dir_stat.stat.exists == false
+- name: Symlink post-commit hook
+  file:
+    src: "/var/git/hooks/post-commit"
+    dest: "/var/www/{{ item }}/.git/hooks/post-commit"
+    state: link
+- name: Symlink post-merge hook
+  file:
+    src: "/var/git/hooks/post-merge"
+    dest: "/var/www/{{ item }}/.git/hooks/post-merge"
+    state: link
+- name: Add hub remote
+  command: "git remote add hub /var/git/{{ item }}"
+  args:
+    chdir: "/var/www/{{ item }}"
+  when: www_dir_stat.stat.exists == false

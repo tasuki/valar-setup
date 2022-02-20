@@ -13,3 +13,7 @@
     - { src: 'post-commit', dest: '/var/git/hooks/', mode: '755' }
     - { src: 'post-merge',  dest: '/var/git/hooks/', mode: '755' }
     - { src: 'post-update', dest: '/var/git/hooks/', mode: '755' }
+- name: Deploy site
+  include_tasks: deploy.yml
+  loop:
+    "{{ projects }}"
