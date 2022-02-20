@@ -3,6 +3,9 @@
   hosts: all
   become: true
   tasks:
+    - name: Install packages
+      apt:
+        pkg: ufw
     - name: Change sshd listen port and disable dangerous things
       lineinfile:
         path: "/etc/ssh/sshd_config"
