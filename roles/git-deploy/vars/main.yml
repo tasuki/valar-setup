@@ -1,0 +1,3 @@
+---
+git_dir: /var/git/{{ domain }}/{{ subdomain }}/
+www_dir: /var/www/{{ domain }}/{{ subdomain }}/

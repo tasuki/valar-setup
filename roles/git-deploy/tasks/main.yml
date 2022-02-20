@@ -1,0 +1,37 @@
+---
+- name: Check git dir exists
+  stat:
+    path: "{{ git_dir }}"
+  register: git_dir_stat
+- name: Create git directory
+  file:
+    path: "{{ git_dir }}"
+    state: directory
+- name: Create bare repo
+  command: "git init --bare {{ git_dir }}"
+  when: git_dir_stat.stat.exists == false
+
+- name: Check www dir exists
+  stat:
+    path: "{{ www_dir }}"
+  register: www_dir_stat
+- name: Create www directory
+  file:
+    path: "{{ www_dir }}"
+    state: directory
+- name: Create repo
+  command: "git init {{ www_dir }}"
+  when: www_dir_stat.stat.exists == false
+- name: Symlink git hooks
+  file:
+    src: "/var/git/hooks/{{ item }}"
+    dest: "{{ www_dir }}.git/hooks/{{ item }}"
+    state: link
+  loop:
+    - post-commit
+    - post-merge
+- name: Add hub remote
+  command: "git remote add hub {{ git_dir }}"
+  args:
+    chdir: "{{ www_dir }}"
+  when: www_dir_stat.stat.exists == false

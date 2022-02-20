@@ -1,0 +1,15 @@
+---
+- name: Create directories
+  file:
+    path: /var/git/hooks
+    state: directory
+- name: Copy templates
+  copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    mode: '{{ item.mode }}'
+  loop:
+    - { src: 'README.md',   dest: '/var/git/',       mode: '644' }
+    - { src: 'post-commit', dest: '/var/git/hooks/', mode: '755' }
+    - { src: 'post-merge',  dest: '/var/git/hooks/', mode: '755' }
+    - { src: 'post-update', dest: '/var/git/hooks/', mode: '755' }
