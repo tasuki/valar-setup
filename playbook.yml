@@ -6,13 +6,21 @@
   become: true
   vars:
     projects:
-      - { domain: 'org.tasuki', subdomain: 'www' }
-      - { domain: 'org.tasuki', subdomain: 'cv' }
       - { domain: 'org.tasuki', subdomain: 'blog' }
-      - { domain: 'tasuki', subdomain: 'www' }
+      - { domain: 'org.tasuki', subdomain: 'cv' }
+      - { domain: 'org.tasuki', subdomain: 'enchiridion' }
+      - { domain: 'org.tasuki', subdomain: 'fonts' }
+      - { domain: 'org.tasuki', subdomain: 'gallery' }
+      - { domain: 'org.tasuki', subdomain: 'masonry-ordered' }
+      - { domain: 'org.tasuki', subdomain: 'system' }
+      - { domain: 'org.tasuki', subdomain: 'tmp' }
+      - { domain: 'org.tasuki', subdomain: 'tsumego' }
+      - { domain: 'org.tasuki', subdomain: 'ttc' }
+      - { domain: 'org.tasuki', subdomain: 'www' }
       - { domain: 'tasuki', subdomain: 'domains' }
       - { domain: 'tasuki', subdomain: 'nb-proxy' }
       - { domain: 'tasuki', subdomain: 'sniper' }
+      - { domain: 'tasuki', subdomain: 'www' }
   roles:
     - role: roles/git-deployments
     - role: roles/web-server

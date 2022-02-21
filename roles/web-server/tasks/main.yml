@@ -1,0 +1,26 @@
+---
+- name: Install Apache and PHP
+  apt:
+    pkg:
+      - apache2
+      - php
+- name: Add fallback index
+  copy:
+    src: html-index.php
+    dest: /var/www/html/index.php
+- name: Remove default fallback index
+  file:
+    path: /var/www/html/index.html
+    state: absent
+- name: Add default ssl fallback
+  copy:
+    src: default-ssl.conf
+    dest: /etc/apache2/sites-available/default-ssl.conf
+- name: Create websites
+  template:
+    src: "{{ item.domain }}.{{ item.subdomain }}.conf"
+    dest: "/etc/apache2/sites-available/{{ item.domain }}.{{ item.subdomain }}.conf"
+  vars:
+    document_root_path: "/"
+  loop:
+    "{{ projects }}"
