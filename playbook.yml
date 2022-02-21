@@ -1,10 +1,25 @@
 ---
 - import_playbook: playbooks/personalize.yml
 - import_playbook: playbooks/secure.yml
+- name: Set up deployments
+  hosts: all
+  become: true
+  vars:
+    projects:
+      - { domain: 'org.tasuki', subdomain: 'www' }
+      - { domain: 'org.tasuki', subdomain: 'cv' }
+      - { domain: 'org.tasuki', subdomain: 'blog' }
+      - { domain: 'tasuki', subdomain: 'www' }
+      - { domain: 'tasuki', subdomain: 'domains' }
+      - { domain: 'tasuki', subdomain: 'nb-proxy' }
+      - { domain: 'tasuki', subdomain: 'sniper' }
+  roles:
+    - role: roles/git-deployments
+    - role: roles/web-server
 
 # TODO:
-# git deploy
-# apache
 # letsencrypt
 # websites
+# awstats
 # munin
+# crons
