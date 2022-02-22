@@ -15,12 +15,23 @@
 - name: Add default ssl fallback
   copy:
     src: default-ssl.conf
-    dest: /etc/apache2/sites-available/default-ssl.conf
+    dest: /etc/apache2/sites-available/000-default-ssl.conf
+- name: Enable default ssl
+  command: "a2ensite 000-default-ssl.conf"
+  args:
+    creates: /etc/apache2/sites-enabled/000-default-ssl.conf
+
 - name: Create websites
   template:
     src: "{{ item.domain }}.{{ item.subdomain }}.conf"
     dest: "/etc/apache2/sites-available/{{ item.domain }}.{{ item.subdomain }}.conf"
   vars:
     document_root_path: "/"
+  loop:
+    "{{ projects }}"
+- name: Enable websites
+  command: "a2ensite {{ item.domain }}.{{ item.subdomain }}.conf"
+  args:
+    creates: /etc/apache2/sites-enabled/{{ item.domain }}.{{ item.subdomain }}.conf
   loop:
     "{{ projects }}"
