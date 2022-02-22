@@ -16,13 +16,7 @@
         - { key: "Port", value: "678" }
         - { key: "PermitRootLogin", value: "no" }
         - { key: "PasswordAuthentication", value: "no" }
-      register: sshd_config
-    - name: Restart ssh
-      service:
-        name: sshd
-        state: restarted
-      when: sshd_config.changed
-
+      notify: restart sshd
     - name: Enable ufw
       community.general.ufw:
         state: enabled
@@ -41,3 +35,9 @@
         rule: allow
         port: 60000:61000
         proto: udp
+
+  handlers:
+    - name: Restart sshd
+      service:
+        name: sshd
+        state: restarted
