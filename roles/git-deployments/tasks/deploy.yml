@@ -1,27 +1,21 @@
 ---
-- name: Check git dir exists
-  stat:
-    path: "/var/git/{{ item.domain }}/{{ item.subdomain }}"
-  register: git_dir_stat
 - name: Create git directory
   file:
     path: "/var/git/{{ item.domain }}/{{ item.subdomain }}"
     state: directory
-- name: Create bare repo
+- name: Create bare repo in git directory
   command: "git init --bare /var/git/{{ item.domain }}/{{ item.subdomain }}"
-  when: git_dir_stat.stat.exists == false
+  args:
+    creates: "/var/git/{{ item.domain }}/{{ item.subdomain }}/HEAD"
 
-- name: Check www dir exists
-  stat:
-    path: "/var/www/{{ item.domain }}/{{ item.subdomain }}"
-  register: www_dir_stat
 - name: Create www directory
   file:
     path: "/var/www/{{ item.domain }}/{{ item.subdomain }}"
     state: directory
 - name: Create repo
   command: "git init /var/www/{{ item.domain }}/{{ item.subdomain }}"
-  when: www_dir_stat.stat.exists == false
+  args:
+    creates: "/var/git/{{ item.domain }}/{{ item.subdomain }}/HEAD"
 - name: Symlink post-commit hook
   file:
     src: "/var/git/hooks/post-commit"
@@ -33,7 +27,11 @@
     dest: "/var/www/{{ item.domain }}/{{ item.subdomain }}/.git/hooks/post-merge"
     state: link
 - name: Add hub remote
-  command: "git remote add hub /var/git/{{ item.domain }}/{{ item.subdomain }}"
-  args:
+  command:
+    cmd: "git remote add hub /var/git/{{ item.domain }}/{{ item.subdomain }}"
     chdir: "/var/www/{{ item.domain }}/{{ item.subdomain }}"
-  when: www_dir_stat.stat.exists == false
+  register: add_result
+  changed_when: add_result.rc == 0
+  failed_when:
+    - add_result.rc != 0
+    - add_result.stderr | default('') is not search("remote .* already exists")
