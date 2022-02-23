@@ -29,9 +29,16 @@
     document_root_path: "/"
   loop:
     "{{ projects }}"
+  notify: Restart apache
 - name: Enable websites
   command: "a2ensite {{ item.domain }}.{{ item.subdomain }}.conf"
   args:
     creates: /etc/apache2/sites-enabled/{{ item.domain }}.{{ item.subdomain }}.conf
   loop:
     "{{ projects }}"
+  notify: Restart apache
+
+- name: Htpasswd
+  template:
+    src: htpasswd
+    dest: "/etc/apache2/htpasswd"
