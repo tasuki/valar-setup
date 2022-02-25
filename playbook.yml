@@ -12,6 +12,9 @@
     - role: roles/git-deployments
     - role: roles/web-server
 
+# Set up concrete websites
+- import_playbook: playbooks/sites/org.tasuki.blog.yml
+
 # TODO:
 # letsencrypt
 # awstats
