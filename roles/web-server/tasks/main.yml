@@ -1,9 +1,22 @@
 ---
-- name: Install Apache and PHP
+- name: Install Apache etc
   apt:
     pkg:
       - apache2
+      - certbot
       - php
+      - cronolog
+- name: Enable apache modules
+  community.general.apache2_module:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - rewrite
+    - ssl
+    - proxy
+    - headers
+    - cache_disk
+  notify: Restart apache
 - name: Add fallback index
   copy:
     src: html-index.php
@@ -20,6 +33,11 @@
   command: "a2ensite 000-default-ssl.conf"
   args:
     creates: /etc/apache2/sites-enabled/000-default-ssl.conf
+
+- name: Htpasswd
+  template:
+    src: htpasswd
+    dest: "/etc/apache2/htpasswd"
 
 - name: Create websites
   template:
@@ -38,7 +56,9 @@
     "{{ projects }}"
   notify: Restart apache
 
-- name: Htpasswd
-  template:
-    src: htpasswd
-    dest: "/etc/apache2/htpasswd"
+- name: Create log directories
+  file:
+    path: "/var/log/apache2//{{ item.domain }}/{{ item.subdomain }}/"
+    state: directory
+  loop:
+    "{{ projects }}"

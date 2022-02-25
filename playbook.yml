@@ -2,7 +2,7 @@
 - import_playbook: playbooks/personalize.yml
 - import_playbook: playbooks/secure.yml
 
-- name: Set up deployments
+- name: Set up deployments and web server
   hosts: all
   become: true
   vars_files:

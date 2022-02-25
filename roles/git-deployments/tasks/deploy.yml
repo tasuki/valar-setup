@@ -15,7 +15,7 @@
 - name: Create repo
   command: "git init /var/www/{{ item.domain }}/{{ item.subdomain }}"
   args:
-    creates: "/var/git/{{ item.domain }}/{{ item.subdomain }}/HEAD"
+    creates: "/var/www/{{ item.domain }}/{{ item.subdomain }}/.git"
 - name: Symlink post-commit hook
   file:
     src: "/var/git/hooks/post-commit"
