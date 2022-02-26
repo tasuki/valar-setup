@@ -27,11 +27,8 @@
     dest: "/var/www/{{ item.domain }}/{{ item.subdomain }}/.git/hooks/post-merge"
     state: link
 - name: Add hub remote
-  command:
-    cmd: "git remote add hub /var/git/{{ item.domain }}/{{ item.subdomain }}"
+  import_tasks: remote-add.yml
+  vars:
+    name: hub
+    repo: "/var/git/{{ item.domain }}/{{ item.subdomain }}"
     chdir: "/var/www/{{ item.domain }}/{{ item.subdomain }}"
-  register: add_result
-  changed_when: add_result.rc == 0
-  failed_when:
-    - add_result.rc != 0
-    - add_result.stderr | default('') is not search("remote .* already exists")

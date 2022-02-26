@@ -1,0 +1,10 @@
+---
+- name: Add origin remote
+  import_tasks: remote-add.yml
+  vars:
+    name: origin
+- name: "Clone {{ repo }} to {{ chdir }}"
+  git:
+    repo: "{{ repo }}"
+    dest: "{{ chdir }}"
+    version: master

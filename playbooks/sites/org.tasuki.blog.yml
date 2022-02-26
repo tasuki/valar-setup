@@ -3,27 +3,23 @@
   become: true
   vars:
     repo: https://github.com/tasuki/blog.git
-    base: /var/www/org.tasuki/blog
+    chdir: /var/www/org.tasuki/blog
   tasks:
-    - name: "Clone {{ repo }} to {{ base }}"
-      git:
-        repo: "{{ repo }}"
-        dest: "{{ base }}"
-        version: master
+    - name: "Clone {{ repo }} to {{ chdir }}"
+      import_tasks: ../../roles/git-deployments/tasks/clone.yml
     - name: Install dependencies
       apt:
         pkg: [ ruby-full, bundler, build-essential ]
     - name: Bundle install
       bundler:
-        chdir: "{{ base }}"
+        chdir: "{{ chdir }}"
         state: present
 
-    - name: "Check whether {{ base }}/_site/ exists"
+    - name: "Check whether {{ chdir }}/_site/ exists"
       stat:
-        path: "{{ base }}/_site/"
+        path: "{{ chdir }}/_site/"
       register: blog_site
     - name: Publish blog
       make:
-        chdir: "{{ base }}"
+        chdir: "{{ chdir }}"
       when: not blog_site.stat.exists
-

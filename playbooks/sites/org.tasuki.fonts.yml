@@ -1,0 +1,23 @@
+- name: Set up fonts.tasuki.org
+  hosts: all
+  become: true
+  vars:
+    repo: https://github.com/tasuki/fonts.git
+    chdir: /var/www/org.tasuki/fonts
+  tasks:
+    - name: "Clone {{ repo }} to {{ chdir }}"
+      import_tasks: ../../roles/git-deployments/tasks/clone.yml
+    - name: Install packages
+      apt:
+        pkg: [ composer ]
+
+    - name: "Check whether {{ chdir }}/vendor/ exists"
+      stat:
+        path: "{{ chdir }}/vendor/"
+      register: fonts_site
+    - name: Install composer dependencies
+      make:
+        chdir: "{{ chdir }}"
+      environment:
+        COMPOSER_ALLOW_SUPERUSER: 1
+      when: not fonts_site.stat.exists

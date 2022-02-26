@@ -1,0 +1,24 @@
+- name: Set up gallery.tasuki.org
+  hosts: all
+  become: true
+  vars:
+    repo: https://github.com/tasuki/gallery.git
+    chdir: /var/www/org.tasuki/gallery
+  tasks:
+    - name: "Clone {{ repo }} to {{ chdir }}"
+      import_tasks: ../../roles/git-deployments/tasks/clone.yml
+
+    - name: Copy config file
+      copy:
+        src:  "{{ chdir }}/application/config/application.php.template"
+        dest: "{{ chdir }}/application/config/application.php"
+        remote_src: true
+    - name: Writable cache/logs/gallery
+      file:
+        path: "{{ item }}"
+        owner: www-data
+        group: www-data
+      loop:
+        - "{{ chdir }}/gallery/"
+        - "{{ chdir }}/application/cache/"
+        - "{{ chdir }}/application/logs/"

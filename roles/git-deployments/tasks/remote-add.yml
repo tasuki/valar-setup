@@ -1,0 +1,11 @@
+---
+- name: Add {{ name }} remote
+  command:
+    cmd: "git remote add {{ name }} {{ repo }}"
+    chdir: "{{ chdir }}"
+  register: add_result
+  changed_when: add_result.rc == 0
+  failed_when:
+    - add_result.rc != 0
+    - add_result.stderr | default('') is not search("remote .* already exists")
+
