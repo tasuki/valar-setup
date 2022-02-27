@@ -1,0 +1,9 @@
+- name: Set up cv.tasuki.org
+  hosts: all
+  become: true
+  vars:
+    repo: https://github.com/tasuki/cv.git
+    chdir: /var/www/org.tasuki/cv
+  tasks:
+    - name: "Clone {{ repo }} to {{ chdir }}"
+      import_tasks: ../../roles/git-deployments/tasks/clone.yml
