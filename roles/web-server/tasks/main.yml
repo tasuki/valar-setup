@@ -33,11 +33,18 @@
   command: "a2ensite 000-default-ssl.conf"
   args:
     creates: /etc/apache2/sites-enabled/000-default-ssl.conf
+- name: Create log directories
+  file:
+    path: "/var/log/apache2//{{ item.domain }}/{{ item.subdomain }}/"
+    state: directory
+  loop:
+    "{{ projects }}"
 
 - name: Htpasswd
   template:
     src: htpasswd
     dest: "/etc/apache2/htpasswd"
+  notify: Restart apache
 
 - name: Create websites
   template:
@@ -55,10 +62,3 @@
   loop:
     "{{ projects }}"
   notify: Restart apache
-
-- name: Create log directories
-  file:
-    path: "/var/log/apache2//{{ item.domain }}/{{ item.subdomain }}/"
-    state: directory
-  loop:
-    "{{ projects }}"
