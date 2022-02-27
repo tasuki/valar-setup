@@ -1,0 +1,19 @@
+- name: Set up masonry-ordered.tasuki.org
+  hosts: all
+  become: true
+  vars:
+    repo: https://github.com/tasuki/masonry-ordered.git
+    chdir: /var/www/org.tasuki/masonry-ordered
+  tasks:
+    - name: "Clone {{ repo }} to {{ chdir }}"
+      import_tasks: ../../roles/git-deployments/tasks/clone.yml
+
+    # Optimistically assume dependencies are installed
+    - name: "Check whether {{ chdir }}/_site/ exists"
+      stat:
+        path: "{{ chdir }}/_site/"
+      register: generated_site
+    - name: Publish
+      make:
+        chdir: "{{ chdir }}"
+      when: not generated_site.stat.exists

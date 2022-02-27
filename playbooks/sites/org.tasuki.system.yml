@@ -1,0 +1,14 @@
+- name: Set up system.tasuki.org
+  hosts: all
+  become: true
+  vars:
+    chdir: /var/www/org.tasuki/system
+  tasks:
+    - name: Copy files
+      copy:
+        src: "org.tasuki.system/{{ item.src }}"
+        dest: "{{ chdir }}"
+      loop:
+        - { src: "awstats-list.php" }
+        - { src: "munin-highlights.php" }
+        - { src: "phpinfo.php" }
