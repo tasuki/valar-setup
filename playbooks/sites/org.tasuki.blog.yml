@@ -18,8 +18,8 @@
     - name: "Check whether {{ chdir }}/_site/ exists"
       stat:
         path: "{{ chdir }}/_site/"
-      register: blog_site
-    - name: Publish blog
+      register: generated_site
+    - name: Publish
       make:
         chdir: "{{ chdir }}"
-      when: not blog_site.stat.exists
+      when: not generated_site.stat.exists

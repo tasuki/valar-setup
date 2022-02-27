@@ -14,10 +14,10 @@
     - name: "Check whether {{ chdir }}/vendor/ exists"
       stat:
         path: "{{ chdir }}/vendor/"
-      register: fonts_site
+      register: dependencies_dir
     - name: Install composer dependencies
       make:
         chdir: "{{ chdir }}"
       environment:
         COMPOSER_ALLOW_SUPERUSER: 1
-      when: not fonts_site.stat.exists
+      when: not dependencies_dir.stat.exists

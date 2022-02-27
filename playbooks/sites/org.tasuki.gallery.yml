@@ -8,6 +8,10 @@
     - name: "Clone {{ repo }} to {{ chdir }}"
       import_tasks: ../../roles/git-deployments/tasks/clone.yml
 
+    - name: Install dependencies
+      apt:
+        pkg: [ php-gd ]
+
     - name: Copy config file
       copy:
         src:  "{{ chdir }}/application/config/application.php.template"
