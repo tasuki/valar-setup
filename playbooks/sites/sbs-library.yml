@@ -1,0 +1,19 @@
+- name: "Check whether sbs library dir exists"
+  stat:
+    path: "/var/www/org.tasuki/sbs"
+  register: library_dir
+- name: "Clone sbs library repo"
+  git:
+    repo: "https://github.com/tasuki/sbs.git"
+    dest: "/var/www/org.tasuki/sbs"
+  when: not library_dir.stat.exists
+- name: Point base to root
+  replace:
+    path: "/var/www/org.tasuki/sbs/index.html"
+    regexp: '<base href="/sbs/">'
+    replace: '<base href="/">'
+- name: Enable html5Mode
+  replace:
+    path: "/var/www/org.tasuki/sbs/index.html"
+    regexp: 'html5Mode=false'
+    replace: 'html5Mode=true'

@@ -15,11 +15,13 @@
 
 # Set up concrete websites
 - import_playbook: playbooks/sites/org.tasuki.blog.yml
+- import_playbook: playbooks/sites/org.tasuki.enchiridion.yml
 - import_playbook: playbooks/sites/org.tasuki.fonts.yml
 - import_playbook: playbooks/sites/org.tasuki.gallery.yml
 - import_playbook: playbooks/sites/org.tasuki.masonry-ordered.yml
 - import_playbook: playbooks/sites/org.tasuki.system.yml
 - import_playbook: playbooks/sites/org.tasuki.tsumego.yml
+- import_playbook: playbooks/sites/org.tasuki.ttc.yml
 - import_playbook: playbooks/sites/org.tasuki.www.yml
 
 # TODO:
