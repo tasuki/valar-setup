@@ -1,0 +1,11 @@
+---
+- name: Copy letsencrypt files
+  copy:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+  loop:
+    - { src: 'options-ssl-apache.conf', dest: '/etc/letsencrypt/' }
+    - { src: 'keys/cert.pem',           dest: '/etc/letsencrypt/live/tasuki.org/' }
+    - { src: 'keys/chain.pem',          dest: '/etc/letsencrypt/live/tasuki.org/' }
+    - { src: 'keys/fullchain.pem',      dest: '/etc/letsencrypt/live/tasuki.org/' }
+    - { src: 'keys/privkey.pem',        dest: '/etc/letsencrypt/live/tasuki.org/' }

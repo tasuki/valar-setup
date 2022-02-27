@@ -10,6 +10,7 @@
     - vars/vault.yml
   roles:
     - role: roles/git-deployments
+    - role: roles/ssl-cheat
     - role: roles/web-server
 
 # Set up concrete websites
