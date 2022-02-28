@@ -1,0 +1,39 @@
+---
+- name: Monitoring with Munin
+  hosts: all
+  become: true
+  vars:
+    htmldir: "/var/www/org.tasuki/system/munin"
+  tasks:
+    - name: Install munin
+      apt:
+        pkg:
+          [ munin, munin-node, munin-plugins-extra ]
+    - name: Create htmldir
+      file:
+        path: "{{ htmldir }}"
+        state: directory
+        owner: munin
+        group: munin
+    - name: Set htmldir
+      lineinfile:
+        path: "/etc/munin/munin.conf"
+        regex: "htmldir"
+        line: "htmldir {{ htmldir }}"
+      notify: Restart munin
+    - name: Disable apache module
+      file:
+        path: "/etc/apache2/conf-enabled/munin.conf"
+        state: absent
+      notify: Restart apache
+
+  handlers:
+    - name: Restart munin
+      service:
+        name: "{{ item }}"
+        state: restarted
+      loop: [ munin, munin-node ]
+    - name: Restart apache
+      service:
+        name: apache2
+        state: restarted
