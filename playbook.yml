@@ -12,6 +12,7 @@
     - role: roles/git-deployments
     - role: roles/ssl-cheat
     - role: roles/web-server
+    - role: roles/analytics
 
 # Set up concrete websites
 - import_playbook: playbooks/sites/org.tasuki.blog.yml
@@ -30,5 +31,4 @@
 
 # TODO:
 # letsencrypt
-# awstats
 # crons

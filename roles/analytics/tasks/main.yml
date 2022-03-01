@@ -1,0 +1,15 @@
+---
+- name: Install AWStats
+  apt:
+    pkg:
+      - awstats
+- name: Copy local conf
+  copy:
+    src: awstats.conf.local
+    dest: /etc/awstats/
+- name: Create website configs
+  template:
+    src: site.conf
+    dest: "/etc/awstats/awstats.{{ item.domain }}.{{ item.subdomain }}.conf"
+  loop:
+    "{{ projects }}"

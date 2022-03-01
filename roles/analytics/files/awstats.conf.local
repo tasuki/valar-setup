@@ -1,0 +1,14 @@
+# Apache
+LogFormat=1
+
+# Web log
+LogType=W
+
+# Reverse lookup
+DNSLookup=1
+
+# Moar high level view
+AllowFullYearView=3
+
+# Awstats data
+DirData="/var/lib/awstats"

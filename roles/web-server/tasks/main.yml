@@ -13,9 +13,10 @@
   loop:
     - rewrite
     - ssl
-    - proxy
+    - proxy # namebase proxy
     - headers
     - cache_disk
+    - cgi # awstats
   notify: Restart apache
 - name: Add fallback index
   copy:
