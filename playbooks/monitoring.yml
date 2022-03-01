@@ -21,11 +21,19 @@
         regex: "htmldir"
         line: "htmldir {{ htmldir }}"
       notify: Restart munin
-    - name: Disable apache module
+    - name: Disable apache module, it breaks things
       file:
         path: "/etc/apache2/conf-enabled/munin.conf"
         state: absent
       notify: Restart apache
+    - name: Enable apache monitoring
+      file:
+        src: "/usr/share/munin/plugins/{{ item }}"
+        dest: "/etc/munin/plugins/{{ item }}"
+        state: link
+      loop:
+        [ apache_accesses, apache_processes, apache_volume ]
+      notify: Restart munin
 
   handlers:
     - name: Restart munin
