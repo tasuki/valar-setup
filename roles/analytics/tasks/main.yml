@@ -3,6 +3,8 @@
   apt:
     pkg:
       - awstats
+      - libgeo-ip-perl
+      - geoip-database
 - name: Copy local conf
   copy:
     src: awstats.conf.local

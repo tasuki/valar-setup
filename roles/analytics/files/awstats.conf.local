@@ -12,3 +12,7 @@ AllowFullYearView=3
 
 # Awstats data
 DirData="/var/lib/awstats"
+
+
+### Plugins
+LoadPlugin="geoip GEOIP_STANDARD /usr/share/GeoIP/GeoIP.dat"
