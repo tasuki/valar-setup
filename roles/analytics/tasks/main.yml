@@ -13,3 +13,11 @@
     dest: "/etc/awstats/awstats.{{ item.domain }}.{{ item.subdomain }}.conf"
   loop:
     "{{ projects }}"
+- name:
+  lineinfile:
+    path: "/etc/crontab"
+    regex: "awstats"
+    line: >-
+      5 */03  * * *   root    perl
+      /usr/share/doc/awstats/examples/awstats_updateall.pl now
+      -awstatsprog=/usr/lib/cgi-bin/awstats.pl
