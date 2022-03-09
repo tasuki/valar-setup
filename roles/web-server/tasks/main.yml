@@ -29,14 +29,22 @@
   copy:
     src: default-ssl.conf
     dest: /etc/apache2/sites-available/000-default-ssl.conf
+  notify: Restart apache
 - name: Enable default ssl
   command: "a2ensite 000-default-ssl.conf"
   args:
     creates: /etc/apache2/sites-enabled/000-default-ssl.conf
+  notify: Restart apache
+- name: Deflate markdown
+  replace:
+    path: "/etc/apache2/mods-available/deflate.conf"
+    regexp: 'DEFLATE text/html'
+    replace: 'DEFLATE text/markdown text/html'
+  notify: Restart apache
 
 - name: Create log directories
   file:
-    path: "/var/log/apache2//{{ item.domain }}/{{ item.subdomain }}/"
+    path: "/var/log/apache2/{{ item.domain }}/{{ item.subdomain }}/"
     state: directory
   loop:
     "{{ projects }}"
