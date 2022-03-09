@@ -1,13 +1,4 @@
 ---
-- name: Create git directory
-  file:
-    path: "/var/git/{{ item.domain }}/{{ item.subdomain }}"
-    state: directory
-- name: Create bare repo in git directory
-  command: "git init --bare /var/git/{{ item.domain }}/{{ item.subdomain }}"
-  args:
-    creates: "/var/git/{{ item.domain }}/{{ item.subdomain }}/HEAD"
-
 - name: Create www directory
   file:
     path: "/var/www/{{ item.domain }}/{{ item.subdomain }}"

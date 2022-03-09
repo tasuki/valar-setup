@@ -1,8 +1,9 @@
 #!/bin/sh
 
-NAME=`pwd | sed "s:^/var/git/\(.*\)\.git$:\1:"`
+NAME=`pwd | sed "s:^/var/git/\(.*\)$:\1:"`
 cd "/var/www/$NAME" || exit
 echo "pulling changes from hub to `pwd`"
 unset GIT_DIR
 git fetch hub
 git merge hub/master
+git submodule update --init

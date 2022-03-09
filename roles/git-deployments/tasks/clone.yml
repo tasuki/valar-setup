@@ -1,10 +1,18 @@
 ---
-- name: Add origin remote
-  import_tasks: remote-add.yml
-  vars:
-    name: origin
 - name: "Clone {{ repo }} to {{ chdir }}"
   git:
+    bare: true
     repo: "{{ repo }}"
-    dest: "{{ chdir }}"
+    dest: "{{ chdir | regex_replace('^/var/www/', '/var/git/') }}"
     version: master
+- name: Symlink post-update hook
+  file:
+    src: "/var/git/hooks/post-update"
+    dest: "{{ chdir | regex_replace('^/var/www/', '/var/git/') }}/hooks/post-update"
+    state: link
+  register: symlinked
+- name: Run post-update hook
+  command:
+    cmd: "{{ chdir | regex_replace('^/var/www/', '/var/git/') }}/hooks/post-update"
+    chdir: "{{ chdir | regex_replace('^/var/www/', '/var/git/') }}"
+  when: symlinked.changed
