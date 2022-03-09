@@ -3,7 +3,6 @@
   apt:
     pkg:
       - apache2
-      - certbot
       - php
       - cronolog
 - name: Enable apache modules

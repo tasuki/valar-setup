@@ -1,11 +1,30 @@
 ---
+- name: Create protected directories
+  file:
+    path: "{{ item.path }}"
+    state: directory
+    mode: "{{ item.mode }}"
+  loop:
+    - { path: '/etc/letsencrypt/archive/',         mode: '700' }
+    - { path: '/etc/letsencrypt/live/',            mode: '700' }
+    - { path: '/etc/letsencrypt/live/tasuki.org/', mode: '755' }
 - name: Copy letsencrypt files
   copy:
     src: '{{ item.src }}'
     dest: '{{ item.dest }}'
   loop:
     - { src: 'options-ssl-apache.conf', dest: '/etc/letsencrypt/' }
-    - { src: 'keys/cert.pem',           dest: '/etc/letsencrypt/live/tasuki.org/' }
-    - { src: 'keys/chain.pem',          dest: '/etc/letsencrypt/live/tasuki.org/' }
-    - { src: 'keys/fullchain.pem',      dest: '/etc/letsencrypt/live/tasuki.org/' }
-    - { src: 'keys/privkey.pem',        dest: '/etc/letsencrypt/live/tasuki.org/' }
+    - { src: 'keys/cert.pem',           dest: '/etc/letsencrypt/archive/manual/' }
+    - { src: 'keys/chain.pem',          dest: '/etc/letsencrypt/archive/manual/' }
+    - { src: 'keys/fullchain.pem',      dest: '/etc/letsencrypt/archive/manual/' }
+    - { src: 'keys/privkey.pem',        dest: '/etc/letsencrypt/archive/manual/' }
+- name: Symlink key files
+  file:
+    src: '/etc/letsencrypt/archive/manual/{{ item }}'
+    dest: '/etc/letsencrypt/live/tasuki.org/{{ item }}'
+    state: link
+  loop:
+    - cert.pem
+    - chain.pem
+    - fullchain.pem
+    - privkey.pem
