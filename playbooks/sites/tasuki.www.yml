@@ -1,0 +1,9 @@
+- name: Set up tasuki (@handshake)
+  hosts: all
+  become: true
+  vars:
+    repo: https://github.com/tasuki/www-hns.git
+    chdir: /var/www/tasuki/www
+  tasks:
+    - name: "Clone {{ repo }} to {{ chdir }}"
+      import_tasks: ../../roles/git-deployments/tasks/clone.yml

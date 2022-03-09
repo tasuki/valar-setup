@@ -14,7 +14,7 @@
     - role: roles/web-server
     - role: roles/analytics
 
-# Set up concrete websites
+# Set up *.tasuki.org
 - import_playbook: playbooks/sites/org.tasuki.blog.yml
 - import_playbook: playbooks/sites/org.tasuki.cv.yml
 - import_playbook: playbooks/sites/org.tasuki.enchiridion.yml
@@ -25,6 +25,11 @@
 - import_playbook: playbooks/sites/org.tasuki.tsumego.yml
 - import_playbook: playbooks/sites/org.tasuki.ttc.yml
 - import_playbook: playbooks/sites/org.tasuki.www.yml
+
+# Set up *.tasuki (handshake)
+- import_playbook: playbooks/sites/tasuki.sniper.yml
+- import_playbook: playbooks/sites/tasuki.www.yml
+
 
 # Less important things
 - import_playbook: playbooks/monitoring.yml
