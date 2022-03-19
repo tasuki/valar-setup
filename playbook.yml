@@ -11,6 +11,7 @@
   roles:
     - role: roles/git-deployments
     - role: roles/ssl-cheat
+    - role: roles/ssl-certbot
     - role: roles/web-server
     - role: roles/analytics
 
@@ -33,6 +34,3 @@
 
 # Less important things
 - import_playbook: playbooks/monitoring.yml
-
-# TODO:
-# letsencrypt

@@ -1,0 +1,18 @@
+---
+- name: Install certbot
+  apt:
+    pkg:
+      - certbot
+- name: Copy script
+  template:
+    src: "certbot-renew.sh"
+    dest: "/usr/local/bin/certbot-renew.sh"
+    mode: '755'
+- name:
+  lineinfile:
+    path: "/etc/crontab"
+    regex: "certbot"
+    line: >-
+      52 6    1 * *   root    sh /usr/local/bin/certbot-renew.sh
+
+# TODO we need an account or something? this can only be worked out live I'm afraid
