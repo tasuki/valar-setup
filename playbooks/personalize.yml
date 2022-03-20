@@ -16,6 +16,11 @@
           , tmux, tmuxinator, zsh, vim-nox, htop, nethogs, units # traditional cli tools
           , jq, fzf, fd-find, ripgrep, bat ] # hip cli tools
 
+    - name: Install delta
+      become: true
+      apt:
+        deb: https://github.com/dandavison/delta/releases/download/0.12.1/git-delta_0.12.1_amd64.deb
+
     - name: My own dotrc
       shell: curl -s https://raw.githubusercontent.com/tasuki/dotrc/master/install.sh | bash
       args:
