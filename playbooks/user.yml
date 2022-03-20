@@ -1,0 +1,36 @@
+---
+- name: Create user
+  hosts: all
+  vars:
+    ansible_ssh_user: root
+    ansible_port: '22'
+    username: vita
+  tasks:
+    - name: Create user
+      user:
+        name: "{{ username }}"
+        groups: sudo
+        append: true
+        password: "$6$lP1Yt8.tEdUYL9$VJ4lw5RDBFvIol9l16rGibssVLLlEtJgbTj4XF4qPV\
+                   dFFn1bP5CXdT4q3Y98YnWYZheVACv.8Ijsb8YGHhQyr1"
+    - name: Create ~/.ssh/
+      file:
+        path: "/home/{{ username }}/.ssh/"
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "700"
+    - name: Authorize pubkey
+      copy:
+        dest: "/home/{{ username }}/.ssh/authorized_keys"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "700"
+        content: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4/NV9LR/yxCFfoP5RRTsLx\
+          OQF0PD+kNjbK8mUl8m2syTO8WvfHKyqw/jwligoeortVcWs+Ufm9HSgD7ZKFmucGvTo92\
+          0mgGEv82L8Uy/t1KJwXeK6uRwqPSi3SwZm8HUavFxm3kxLD/N//l7RengS8ndKkPY6ami\
+          FV+DBScYcJz/EFyXhDicbPUaLekzZFicgAsanFZtAuVZHRWr927t4hu1oDswMdX+gWORY\
+          39IBeiczt7fIzwlFQijZa9qpVZwcqYL6rCDucleqCEiWJsBWtf8KlSXZQCGjL0Fmmd5sj\
+          IoPKELMoT9ibwDMbHE/Q2LZZmZzn5jiIJllphXAYwN1\n"
+
+- import_playbook: secure.yml ansible_ssh_user='root' ansible_ssh_port='22'

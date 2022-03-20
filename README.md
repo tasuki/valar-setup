@@ -7,6 +7,14 @@ Mayhaps this will one day automate my cloud server.
 
     $ ansible -i inventory all -m ping
 
+To set up a fresh server, create the user and set up sshd:
+
+    $ ansible-playbook -i inventory -l ulmo playbooks/user.yml
+
+Then run the rest of the setup:
+
+    $ ansible-playbook -i inventory -l ulmo -K --vault-id .vault_pass playbook.yml
+
 ### Secrets
 
     $ echo "password" > .vault_pass # not actual password :)

@@ -10,6 +10,7 @@ ansible_python_interpreter=/usr/bin/python3
 
 [clouds]
 manwe ansible_host=198.211.120.27
+ulmo ansible_host=37.139.4.45
 
 [clouds:vars]
 ansible_user=vita
