@@ -13,7 +13,7 @@
       apt:
         pkg:
           [ curl, bash, git, stow # necessary
-          , tmux, tmuxinator, zsh, vim-nox, htop, nethogs, units # traditional cli tools
+          , mosh, tmux, tmuxinator, zsh, vim-nox, htop, nethogs, units # traditional cli tools
           , jq, fzf, fd-find, ripgrep, bat ] # hip cli tools
 
     - name: Install delta
@@ -31,3 +31,13 @@
       user:
         name: "{{ ansible_user_id }}"
         shell: /bin/zsh
+
+    - name: Locales
+      become: true
+      community.general.locale_gen:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - en_US.UTF-8
+        - en_DK.UTF-8
+        - cs_CZ.UTF-8
