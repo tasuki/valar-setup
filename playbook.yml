@@ -28,6 +28,7 @@
 - import_playbook: playbooks/sites/org.tasuki.www.yml
 
 # Set up *.tasuki (handshake)
+- import_playbook: playbooks/sites/tasuki.domains.yml
 - import_playbook: playbooks/sites/tasuki.sniper.yml
 - import_playbook: playbooks/sites/tasuki.www.yml
 
