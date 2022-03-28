@@ -53,8 +53,8 @@
     path: "/etc/crontab"
     regex: "find /var/log/apache2"
     line: >-
-      11 1    * * *   root    find
-      /var/log/apache2 -name '*.log' -mtime +30 -exec gzip {} \;
+      57 6    1 * *   root    find
+      /var/log/apache2 -name '*.log' -daystart -mtime +0 -exec gzip {} \;
 
 - name: Htpasswd
   template:
