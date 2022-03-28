@@ -20,6 +20,13 @@ Then run the rest of the setup:
     $ echo "password" > .vault_pass # not actual password :)
     $ ansible-vault edit --vault-id .vault_pass vars/vault.yml
 
+### Manually
+
+Afaics right now, the following need manual setup:
+
+- gallery.tasuki.org: all teh photo files
+- domains.tasuki: the `listed.json`
+
 ## Develop
 
     $ sudo apt install virtualbox vagrant
