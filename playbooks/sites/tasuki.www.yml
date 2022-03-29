@@ -1,6 +1,5 @@
 - name: Set up tasuki (@handshake)
   hosts: all
-  become: true
   vars:
     repo: https://github.com/tasuki/www-hns.git
     chdir: /var/www/tasuki/www

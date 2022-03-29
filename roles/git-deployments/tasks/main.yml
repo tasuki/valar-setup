@@ -1,5 +1,15 @@
 ---
-- name: Create directories
+- name: Create www/git directories
+  become: true
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+  loop:
+    - /var/www/
+    - /var/git/
+- name: Create hooks directory
   file:
     path: /var/git/hooks
     state: directory

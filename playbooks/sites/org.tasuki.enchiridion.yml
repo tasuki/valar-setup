@@ -1,6 +1,5 @@
 - name: Set up enchiridion.tasuki.org
   hosts: all
-  become: true
   vars:
     repo: https://github.com/tasuki/sbs-enchiridion.git
     chdir: /var/www/org.tasuki/enchiridion

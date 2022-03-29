@@ -1,6 +1,5 @@
 - name: Set up domains.tasuki (@handshake)
   hosts: all
-  become: true
   vars:
     repo: https://github.com/tasuki/domains.git
     chdir: /var/www/tasuki/domains
@@ -10,11 +9,14 @@
       args:
         creates: elm
     - name: Install Elm
+      become: true
       copy:
         src: elm
+        remote_src: true
         dest: /usr/local/bin/elm
         mode: '755'
-        remote_src: true
+        owner: root
+        group: root
 
     - name: "Clone {{ repo }} to {{ chdir }}"
       import_tasks: ../../roles/git-deployments/tasks/clone.yml

@@ -1,6 +1,5 @@
 - name: Set up masonry-ordered.tasuki.org
   hosts: all
-  become: true
   vars:
     repo: https://github.com/tasuki/masonry-ordered.git
     chdir: /var/www/org.tasuki/masonry-ordered

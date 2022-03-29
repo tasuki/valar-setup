@@ -2,14 +2,21 @@
 - import_playbook: playbooks/personalize.yml
 - import_playbook: playbooks/secure.yml
 
-- name: Set up deployments and web server
+- name: Set up deployments
+  hosts: all
+  vars_files:
+    - vars/global.yml
+    - vars/vault.yml
+  roles:
+    - role: roles/git-deployments
+
+- name: Set up SSL, web server, and analytics
   hosts: all
   become: true
   vars_files:
     - vars/global.yml
     - vars/vault.yml
   roles:
-    - role: roles/git-deployments
     - role: roles/ssl-cheat
     - role: roles/ssl-certbot
     - role: roles/web-server

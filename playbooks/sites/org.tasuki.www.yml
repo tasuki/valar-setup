@@ -1,6 +1,5 @@
 - name: Set up www.tasuki.org
   hosts: all
-  become: true
   vars:
     repo: https://github.com/tasuki/www.git
     chdir: /var/www/org.tasuki/www

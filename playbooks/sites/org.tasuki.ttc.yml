@@ -1,6 +1,5 @@
 - name: Set up ttc.tasuki.org
   hosts: all
-  become: true
   vars:
     repo: https://github.com/tasuki/sbs-ttc.git
     chdir: /var/www/org.tasuki/ttc

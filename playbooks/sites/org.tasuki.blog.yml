@@ -1,6 +1,5 @@
 - name: Set up blog.tasuki.org
   hosts: all
-  become: true
   vars:
     repo: https://github.com/tasuki/blog.git
     chdir: /var/www/org.tasuki/blog
@@ -8,9 +7,11 @@
     - name: "Clone {{ repo }} to {{ chdir }}"
       import_tasks: ../../roles/git-deployments/tasks/clone.yml
     - name: Install dependencies
+      become: true
       apt:
         pkg: [ ruby-full, bundler, build-essential ]
     - name: Bundle install
+      become: true
       bundler: # gem install sassc -v '2.4.0' --source 'https://rubygems.org/'
         chdir: "{{ chdir }}"
         state: present

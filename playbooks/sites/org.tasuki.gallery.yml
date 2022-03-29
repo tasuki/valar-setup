@@ -1,6 +1,5 @@
 - name: Set up gallery.tasuki.org
   hosts: all
-  become: true
   vars:
     repo: https://github.com/tasuki/gallery.git
     chdir: /var/www/org.tasuki/gallery
@@ -9,6 +8,7 @@
       import_tasks: ../../roles/git-deployments/tasks/clone.yml
 
     - name: Install dependencies
+      become: true
       apt:
         pkg: [ php-gd ]
 
@@ -18,6 +18,7 @@
         dest: "{{ chdir }}/application/config/application.php"
         remote_src: true
     - name: Writable cache/logs/gallery
+      become: true
       file:
         path: "{{ item }}"
         owner: www-data

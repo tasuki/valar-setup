@@ -1,6 +1,5 @@
 - name: Set up cv.tasuki.org
   hosts: all
-  become: true
   vars:
     repo: https://github.com/tasuki/cv.git
     chdir: /var/www/org.tasuki/cv

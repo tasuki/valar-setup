@@ -1,6 +1,5 @@
 - name: Set up system.tasuki.org
   hosts: all
-  become: true
   vars:
     chdir: /var/www/org.tasuki/system
   tasks:

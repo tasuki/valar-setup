@@ -25,6 +25,7 @@ Then run the rest of the setup:
 Afaics right now, the following need manual setup:
 
 - gallery.tasuki.org: all teh photo files
+- tmp.tasuki.org: all teh random files
 - domains.tasuki: the `listed.json`
 
 ## Develop
