@@ -3,6 +3,7 @@
   apt:
     pkg:
       - certbot
+      - python3-certbot-apache
 - name: Copy script
   template:
     src: "certbot-renew.sh"
