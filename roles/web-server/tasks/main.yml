@@ -13,6 +13,7 @@
     - rewrite
     - ssl
     - proxy # namebase proxy
+    - proxy_http # namebase proxy
     - headers
     - cache_disk
     - cgi # awstats
