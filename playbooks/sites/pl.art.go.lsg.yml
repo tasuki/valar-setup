@@ -1,0 +1,26 @@
+- name: Set up lsg.go.art.pl
+  hosts: all
+  vars:
+    repo: https://github.com/tasuki/lsg.git
+    chdir: /var/www/pl.art.go/lsg
+  tasks:
+    - name: "Clone {{ repo }} to {{ chdir }}"
+      import_tasks: ../../roles/git-deployments/tasks/clone.yml
+    - name: Install dependencies
+      become: true
+      apt:
+        pkg: [ ruby-full, bundler, build-essential, python3-docutils, python3-bs4 ]
+    - name: Bundle install
+      become: true
+      bundler:
+        chdir: "{{ chdir }}"
+        state: present
+
+    - name: "Check whether {{ chdir }}/_site/ exists"
+      stat:
+        path: "{{ chdir }}/_site/"
+      register: generated_site
+    - name: Publish
+      make:
+        chdir: "{{ chdir }}"
+      when: not generated_site.stat.exists

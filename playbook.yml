@@ -39,6 +39,9 @@
 - import_playbook: playbooks/sites/tasuki.sniper.yml
 - import_playbook: playbooks/sites/tasuki.www.yml
 
+# Set up lsg.go.art.pl
+- import_playbook: playbooks/sites/pl.art.go.lsg.yml
+
 
 # Less important things
 - import_playbook: playbooks/monitoring.yml
