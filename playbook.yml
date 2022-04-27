@@ -10,6 +10,8 @@
   roles:
     - role: roles/git-deployments
 
+- import_playbook: playbooks/deploy-users.yml
+
 - name: Set up SSL, web server, and analytics
   hosts: all
   become: true

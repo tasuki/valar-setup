@@ -1,0 +1,47 @@
+---
+- name: Create users for deployments
+  hosts: all
+  become: true
+  vars:
+    username: deploy_lsg
+  tasks:
+    - name: Create user
+      user:
+        name: "{{ username }}"
+        append: true
+        password: "$6$lP1Yt8.tEdUYL9$VJ4lw5RDBFvIol9l16rGibssVLLlEtJgbTj4XF4qPV\
+                   dFFn1bP5CXdT4q3Y98YnWYZheVACv.8Ijsb8YGHhQyr1"
+    - name: Create ~/.ssh/
+      file:
+        path: "/home/{{ username }}/.ssh/"
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "700"
+    - name: Authorize pubkey
+      copy:
+        dest: "/home/{{ username }}/.ssh/authorized_keys"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "700"
+        content: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCvjOHshYq6ckYcniQuGOTNV\
+          FtTA0+r4XwRg9yTnQgFZVrZ03budOSOVwM8zget6J0f+aPmZIzU6dVpZRSMO5aTDrggrl\
+          sxMOXx94QWRA7PmGM+VjjrQqrVFN/5WTjK7PWlnEoRUIIDz8vhpUk2RkDSPGAbQr+fpIx\
+          gWzJPMVN5NppFt5Okna5vNTIPeY/1XdrJVrQ8RfevfxPbkL0r/wqaErgE+pyI6xx7ahz6\
+          j37f8OVeMN3+ofzcFbRzds6qF+q0n/maca9/y5RoRvHrEArV0n0UkWkIb4mrD9nNjaKLB\
+          iDvCWgq/BNmUFVeZ0pRoChly90pcSg2fKBcuI6RZ1iPPYFW9VDnwi3SVQCTOXXXCqFaWg\
+          +epQmcrpSNlrelNWLFMGL4I2KWqIzGK0yQfWVSSe8k+1Z9WNJkzR5eiRSQs0M56t5Zh/4\
+          dhmsTDewXW1jNH+fsEt5j8L+NP+AkXPHiekjQ5NshwZVdy+R48sd/WXE93/74YAA0jgD5\
+          jqrLNcA6E3pUUaGsbADfekLXxFWII6mOUFTPz+BgDKzrjhzPFUH77hZJnF7f2qDbWr7Sl\
+          7McwWsLy3YikmIuHUvN2i0Fh0D9QR0dtAnBmBO3TB9gfIHl3f+1gULu83B0R0PIH9m6Gl\
+          PDTKRQVUzLwbR+jCBt4h/ge6pBBgPHVfQX9sSJSw== lsg_deploy"
+
+    - name: Recursively change owner
+      file:
+        dest: "{{ item }}"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        recurse: true
+        follow: false
+      loop:
+        [ "/var/git/pl.art.go/", "/var/www/pl.art.go/" ]

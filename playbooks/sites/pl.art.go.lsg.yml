@@ -1,5 +1,7 @@
 - name: Set up lsg.go.art.pl
   hosts: all
+  become: true
+  become_user: deploy_lsg
   vars:
     repo: https://github.com/tasuki/lsg.git
     chdir: /var/www/pl.art.go/lsg
@@ -7,11 +9,11 @@
     - name: "Clone {{ repo }} to {{ chdir }}"
       import_tasks: ../../roles/git-deployments/tasks/clone.yml
     - name: Install dependencies
-      become: true
+      become_user: root
       apt:
         pkg: [ ruby-full, bundler, build-essential, python3-docutils, python3-bs4 ]
     - name: Bundle install
-      become: true
+      become_user: root
       bundler:
         chdir: "{{ chdir }}"
         state: present

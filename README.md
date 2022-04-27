@@ -1,11 +1,17 @@
 Mayhaps this will one day automate my cloud server.
 
-## Use
+## Set up Ansible
 
     $ sudo apt install ansible
     $ ansible-galaxy collection install community.general
 
     $ ansible -i inventory all -m ping
+
+In `/etc/ansible/ansible.cfg`, set the following:
+
+    allow_world_readable_tmpfiles = True
+
+## Use
 
 To set up a fresh server, create the user and set up sshd:
 
