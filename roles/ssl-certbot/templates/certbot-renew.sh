@@ -16,3 +16,8 @@ certbot certonly \
   -d tsumego.tasuki.org \
   -d ttc.tasuki.org \
   -d www.tasuki.org
+
+certbot certonly \
+    --agree-tos --email {{ email }} \
+    --renew-by-default --apache \
+  -d lsg.go.art.pl
