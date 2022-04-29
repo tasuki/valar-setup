@@ -5,26 +5,12 @@
     state: directory
     mode: "{{ item.mode }}"
   loop:
-    - { path: '/etc/letsencrypt/archive/',         mode: '700' }
-    - { path: '/etc/letsencrypt/live/',            mode: '700' }
-    - { path: '/etc/letsencrypt/live/tasuki.org/', mode: '755' }
-- name: Copy letsencrypt files
-  copy:
-    src: '{{ item.src }}'
-    dest: '{{ item.dest }}'
-  loop:
-    - { src: 'options-ssl-apache.conf', dest: '/etc/letsencrypt/' }
-    - { src: 'keys/cert1.pem',           dest: '/etc/letsencrypt/archive/tasuki.org/' }
-    - { src: 'keys/chain1.pem',          dest: '/etc/letsencrypt/archive/tasuki.org/' }
-    - { src: 'keys/fullchain1.pem',      dest: '/etc/letsencrypt/archive/tasuki.org/' }
-    - { src: 'keys/privkey1.pem',        dest: '/etc/letsencrypt/archive/tasuki.org/' }
-- name: Symlink key files
-  file:
-    src: '/etc/letsencrypt/archive/tasuki.org/{{ item.from }}'
-    dest: '/etc/letsencrypt/live/tasuki.org/{{ item.to }}'
-    state: link
-  loop:
-    - { from: "cert1.pem", to: "cert.pem" }
-    - { from: "chain1.pem", to: "chain.pem" }
-    - { from: "fullchain1.pem", to: "fullchain.pem" }
-    - { from: "privkey1.pem", to: "privkey.pem" }
+    - { path: '/etc/letsencrypt/archive/', mode: '700' }
+    - { path: '/etc/letsencrypt/live/',    mode: '700' }
+
+- include_tasks: domain.yml
+  vars:
+    domain: tasuki.org
+- include_tasks: domain.yml
+  vars:
+    domain: lsg.go.art.pl

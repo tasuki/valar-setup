@@ -1,0 +1,19 @@
+---
+- name: Create live directory
+  file:
+    path: "/etc/letsencrypt/live/{{ domain }}"
+    state: directory
+    mode: "755"
+
+- include_tasks: cert-link.yml
+  vars:
+    pemname: cert
+- include_tasks: cert-link.yml
+  vars:
+    pemname: chain
+- include_tasks: cert-link.yml
+  vars:
+    pemname: fullchain
+- include_tasks: cert-link.yml
+  vars:
+    pemname: privkey

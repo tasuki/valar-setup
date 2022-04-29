@@ -1,0 +1,16 @@
+---
+- name: "Copy key file"
+  copy:
+    src: "keys/{{ domain }}/{{ pemname }}1.pem"
+    dest: "/etc/letsencrypt/archive/{{ domain }}/"
+
+- name: "Check whether /etc/letsencrypt/live/{{ domain }}/{{ pemname }}.pem exists"
+  stat:
+    path: "/etc/letsencrypt/live/{{ domain }}/{{ pemname }}.pem"
+  register: dest
+- name: "Symlink to /etc/letsencrypt/live/{{ domain }}/{{ pemname }}.pem"
+  file:
+    src: "/etc/letsencrypt/archive/{{ domain }}/{{ pemname }}1.pem"
+    dest: "/etc/letsencrypt/live/{{ domain }}/{{ pemname }}.pem"
+    state: link
+  when: not dest.stat.exists

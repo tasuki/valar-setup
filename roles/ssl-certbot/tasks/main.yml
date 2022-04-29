@@ -4,6 +4,10 @@
     pkg:
       - certbot
       - python3-certbot-apache
+- name: Copy apache SSL config
+  copy:
+    src: 'options-ssl-apache.conf'
+    dest: '/etc/letsencrypt'
 - name: Copy script
   template:
     src: "certbot-renew.sh"
@@ -15,5 +19,3 @@
     regex: "certbot"
     line: >-
       52 6    1 * *   root    sh /usr/local/bin/certbot-renew.sh
-
-# TODO we need an account or something? this can only be worked out live I'm afraid

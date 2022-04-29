@@ -19,8 +19,8 @@
     - vars/global.yml
     - vars/vault.yml
   roles:
-    - role: roles/ssl-cheat
     - role: roles/ssl-certbot
+    - role: roles/ssl-cheat
     - role: roles/web-server
     - role: roles/analytics
 
