@@ -8,7 +8,6 @@
     - name: Create user
       user:
         name: "{{ username }}"
-        append: true
         password: "$6$lP1Yt8.tEdUYL9$VJ4lw5RDBFvIol9l16rGibssVLLlEtJgbTj4XF4qPV\
                    dFFn1bP5CXdT4q3Y98YnWYZheVACv.8Ijsb8YGHhQyr1"
     - name: Create ~/.ssh/
