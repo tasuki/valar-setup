@@ -34,6 +34,7 @@
 - import_playbook: playbooks/sites/org.tasuki.system.yml
 - import_playbook: playbooks/sites/org.tasuki.tsumego.yml
 - import_playbook: playbooks/sites/org.tasuki.ttc.yml
+- import_playbook: playbooks/sites/org.tasuki.wiki.yml
 - import_playbook: playbooks/sites/org.tasuki.www.yml
 
 # Set up *.tasuki (handshake)

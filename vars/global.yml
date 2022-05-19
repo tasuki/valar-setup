@@ -12,6 +12,7 @@ projects:
   - { domain: 'org.tasuki', subdomain: 'tmp' }
   - { domain: 'org.tasuki', subdomain: 'tsumego' }
   - { domain: 'org.tasuki', subdomain: 'ttc' }
+  - { domain: 'org.tasuki', subdomain: 'wiki' }
   - { domain: 'org.tasuki', subdomain: 'www' }
   - { domain: 'pl.art.go', subdomain: 'lsg' }
   - { domain: 'tasuki', subdomain: 'domains' }

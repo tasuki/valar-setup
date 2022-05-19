@@ -15,6 +15,7 @@ certbot certonly \
   -d tmp.tasuki.org \
   -d tsumego.tasuki.org \
   -d ttc.tasuki.org \
+  -d wiki.tasuki.org \
   -d www.tasuki.org
 
 certbot certonly \

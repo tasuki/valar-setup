@@ -1,0 +1,21 @@
+- name: Set up wiki.tasuki.org
+  hosts: all
+  vars:
+    repo: https://github.com/tasuki/vitwiki.git
+    chdir: /var/www/org.tasuki/wiki
+  tasks:
+    - name: "Clone {{ repo }} to {{ chdir }}"
+      import_tasks: ../../roles/git-deployments/tasks/clone.yml
+    - name: Install dependencies
+      become: true
+      apt:
+        pkg: [ pandoc ]
+
+    - name: "Check whether {{ chdir }}/build/ exists"
+      stat:
+        path: "{{ chdir }}/build/"
+      register: generated_site
+    - name: Publish
+      make:
+        chdir: "{{ chdir }}"
+      when: not generated_site.stat.exists

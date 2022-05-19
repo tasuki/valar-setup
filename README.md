@@ -1,4 +1,4 @@
-Mayhaps this will one day automate my cloud server.
+Automating my cloud server.
 
 ## Set up Ansible
 
