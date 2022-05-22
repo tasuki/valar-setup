@@ -7,10 +7,6 @@ Automating my cloud server.
 
     $ ansible -i inventory all -m ping
 
-In `/etc/ansible/ansible.cfg`, set the following:
-
-    allow_world_readable_tmpfiles = True
-
 ## Use
 
 To set up a fresh server, create the user and set up sshd:
