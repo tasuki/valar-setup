@@ -65,7 +65,7 @@
 
 - name: Create websites
   template:
-    src: "{{ item.domain }}.{{ item.subdomain }}.conf"
+    src: "sites/{{ item.domain }}.{{ item.subdomain }}.conf"
     dest: "/etc/apache2/sites-available/{{ item.domain }}.{{ item.subdomain }}.conf"
   vars:
     document_root_path: "/"
