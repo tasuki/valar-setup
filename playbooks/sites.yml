@@ -1,0 +1,20 @@
+# Set up *.tasuki.org
+- import_playbook: sites/org.tasuki.blog.yml
+- import_playbook: sites/org.tasuki.cv.yml
+- import_playbook: sites/org.tasuki.enchiridion.yml
+- import_playbook: sites/org.tasuki.fonts.yml
+- import_playbook: sites/org.tasuki.gallery.yml
+- import_playbook: sites/org.tasuki.masonry-ordered.yml
+- import_playbook: sites/org.tasuki.system.yml
+- import_playbook: sites/org.tasuki.tsumego.yml
+- import_playbook: sites/org.tasuki.ttc.yml
+- import_playbook: sites/org.tasuki.wiki.yml
+- import_playbook: sites/org.tasuki.www.yml
+
+# Set up *.tasuki (handshake)
+- import_playbook: sites/tasuki.domains.yml
+- import_playbook: sites/tasuki.sniper.yml
+- import_playbook: sites/tasuki.www.yml
+
+# Set up lsg.go.art.pl
+- import_playbook: sites/pl.art.go.lsg.yml

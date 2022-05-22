@@ -11,28 +11,8 @@
 - import_playbook: playbooks/ssl.yml
 - import_playbook: playbooks/web-server.yml
 
-
-# Set up *.tasuki.org
-- import_playbook: playbooks/sites/org.tasuki.blog.yml
-- import_playbook: playbooks/sites/org.tasuki.cv.yml
-- import_playbook: playbooks/sites/org.tasuki.enchiridion.yml
-- import_playbook: playbooks/sites/org.tasuki.fonts.yml
-- import_playbook: playbooks/sites/org.tasuki.gallery.yml
-- import_playbook: playbooks/sites/org.tasuki.masonry-ordered.yml
-- import_playbook: playbooks/sites/org.tasuki.system.yml
-- import_playbook: playbooks/sites/org.tasuki.tsumego.yml
-- import_playbook: playbooks/sites/org.tasuki.ttc.yml
-- import_playbook: playbooks/sites/org.tasuki.wiki.yml
-- import_playbook: playbooks/sites/org.tasuki.www.yml
-
-# Set up *.tasuki (handshake)
-- import_playbook: playbooks/sites/tasuki.domains.yml
-- import_playbook: playbooks/sites/tasuki.sniper.yml
-- import_playbook: playbooks/sites/tasuki.www.yml
-
-# Set up lsg.go.art.pl
-- import_playbook: playbooks/sites/pl.art.go.lsg.yml
-
+# Contents of websites
+- import_playbook: playbooks/sites.yml
 
 # Analytics & Monitoring
 - import_playbook: playbooks/analytics.yml
