@@ -1,28 +1,16 @@
 ---
+# Initial basics
 - import_playbook: playbooks/personalize.yml
 - import_playbook: playbooks/secure.yml
 
-- name: Set up deployments
-  hosts: all
-  vars_files:
-    - vars/global.yml
-    - vars/vault.yml
-  roles:
-    - role: roles/git-deployments
-
+# Deployments
+- import_playbook: playbooks/git-deployments.yml
 - import_playbook: playbooks/deploy-users.yml
 
-- name: Set up SSL, web server, and analytics
-  hosts: all
-  become: true
-  vars_files:
-    - vars/global.yml
-    - vars/vault.yml
-  roles:
-    - role: roles/ssl-certbot
-    - role: roles/ssl-cheat
-    - role: roles/web-server
-    - role: roles/analytics
+# SSL & Web Server
+- import_playbook: playbooks/ssl.yml
+- import_playbook: playbooks/web-server.yml
+
 
 # Set up *.tasuki.org
 - import_playbook: playbooks/sites/org.tasuki.blog.yml
@@ -46,5 +34,6 @@
 - import_playbook: playbooks/sites/pl.art.go.lsg.yml
 
 
-# Less important things
+# Analytics & Monitoring
+- import_playbook: playbooks/analytics.yml
 - import_playbook: playbooks/monitoring.yml

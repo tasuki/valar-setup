@@ -1,0 +1,8 @@
+- name: Set up web server
+  hosts: all
+  become: true
+  vars_files:
+    - ../vars/global.yml
+    - ../vars/vault.yml
+  roles:
+    - role: roles/web-server

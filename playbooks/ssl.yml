@@ -1,0 +1,8 @@
+- name: Set up SSL
+  hosts: all
+  become: true
+  vars_files:
+    - ../vars/global.yml
+  roles:
+    - role: roles/ssl-certbot
+    - role: roles/ssl-cheat

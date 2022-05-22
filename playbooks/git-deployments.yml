@@ -1,0 +1,6 @@
+- name: Set up git deployments
+  hosts: all
+  vars_files:
+    - ../vars/global.yml
+  roles:
+    - role: roles/git-deployments
