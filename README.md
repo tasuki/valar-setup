@@ -43,3 +43,8 @@ Afaics right now, the following need manual setup:
 
     $ vagrant provision
     $ ansible-playbook -i inventory -l dev --vault-id .vault_pass playbook.yml
+
+### Test
+
+1. Put something along the lines of `127.0.0.1 tasuki.org` into `/etc/hosts`.
+2. Visit something like http://tasuki.org:1080/ or https://tasuki.org:1443/
