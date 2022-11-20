@@ -36,11 +36,16 @@
   args:
     creates: /etc/apache2/sites-enabled/000-default-ssl.conf
   notify: Restart apache
-- name: Deflate markdown
-  replace:
+- name: Use gzip deflation where it makes sense
+  lineinfile:
     path: "/etc/apache2/mods-available/deflate.conf"
-    regexp: 'DEFLATE text/html'
-    replace: 'DEFLATE text/markdown text/html'
+    regex: "{{ item }}"
+    line: "\t\tAddOutputFilterByType DEFLATE {{ item }}"
+    insertafter: "<IfModule mod_filter.c>"
+  loop:
+    - "text/markdown"
+    - "image/svg+xml"
+    - "application/json"
   notify: Restart apache
 
 - name: Create log directories
