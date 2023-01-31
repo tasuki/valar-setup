@@ -6,6 +6,7 @@ projects:
   - { domain: 'org.tasuki', subdomain: 'enchiridion' }
   - { domain: 'org.tasuki', subdomain: 'fonts' }
   - { domain: 'org.tasuki', subdomain: 'gallery' }
+  - { domain: 'org.tasuki', subdomain: 'games' }
   - { domain: 'org.tasuki', subdomain: 'golem' }
   - { domain: 'org.tasuki', subdomain: 'masonry-ordered' }
   - { domain: 'org.tasuki', subdomain: 'system' }

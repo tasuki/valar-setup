@@ -9,6 +9,7 @@ certbot certonly \
   -d enchiridion.tasuki.org \
   -d fonts.tasuki.org \
   -d gallery.tasuki.org \
+  -d games.tasuki.org \
   -d golem.tasuki.org \
   -d masonry-ordered.tasuki.org \
   -d system.tasuki.org \

@@ -1,0 +1,35 @@
+- name: Set up games.tasuki.org
+  hosts: all
+  vars:
+    repo: https://github.com/tasuki/game-comment.git
+    chdir: /var/www/org.tasuki/games
+  tasks:
+
+    # clone
+    - name: "Clone {{ repo }} to {{ chdir }}"
+      import_tasks: ../../roles/git-deployments/tasks/clone.yml
+
+    # frontend
+    - name: Download Elm 0.19.1
+      shell: "curl -L https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz | gunzip > elm"
+      args:
+        creates: elm
+    - name: Install Elm
+      become: true
+      copy:
+        src: elm
+        remote_src: true
+        dest: /usr/local/bin/elm
+        mode: '755'
+        owner: root
+        group: root
+    - name: "Check whether {{ chdir }}/frontend/gc.js exists"
+      stat:
+        path: "{{ chdir }}/frontend/gc.js"
+      register: generated_js
+    - name: Make
+      make:
+        chdir: "{{ chdir }}/frontend/"
+      when: not generated_js.stat.exists
+
+    # backend
