@@ -23,6 +23,10 @@
         mode: '755'
         owner: root
         group: root
+    - name: Uglifier
+      become: true
+      apt:
+        pkg: [ uglifyjs ]
     - name: "Check whether {{ chdir }}/frontend/gc.js exists"
       stat:
         path: "{{ chdir }}/frontend/gc.js"
