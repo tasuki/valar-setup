@@ -1,0 +1,14 @@
+[Unit]
+Description=Game Comment
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Restart=always
+RestartSec=10
+User={{ ansible_user_id }}
+WorkingDirectory=/var/www/org.tasuki/games/backend
+ExecStart=stack run
+
+[Install]
+WantedBy=multi-user.target

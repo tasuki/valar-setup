@@ -33,3 +33,20 @@
       when: not generated_js.stat.exists
 
     # backend
+    - name: Install Haskell dependencies
+      become: true
+      apt:
+        pkg: [ haskell-stack, libtinfo-dev, zlib1g-dev ]
+    - name: Copy systemd service config
+      become: true
+      template:
+        src: "org.tasuki.games/game-comment.service"
+        dest: "/etc/systemd/system"
+    - name: Start the game-comment service now and at system startup
+      become: true
+      systemd:
+        daemon_reexec: true
+        daemon_reload: true
+        name: game-comment
+        state: started
+        enabled: true
