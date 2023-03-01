@@ -10,20 +10,19 @@
     - name: Install dependencies
       become: true
       apt:
-        pkg: [ php-gd ]
+        pkg: [ imagemagick, composer, php-mbstring, php-xml, php-imagick ]
 
     - name: Copy config file
       copy:
-        src:  "{{ chdir }}/application/config/application.php.template"
-        dest: "{{ chdir }}/application/config/application.php"
-        remote_src: true
-    - name: Writable cache/logs/gallery
+        src: "org.tasuki.gallery/.env.local"
+        dest: "{{ chdir }}"
+    - name: Writable gallery and var dir
       become: true
       file:
         path: "{{ item }}"
         owner: www-data
         group: www-data
+        recurse: true
       loop:
-        - "{{ chdir }}/gallery/"
-        - "{{ chdir }}/application/cache/"
-        - "{{ chdir }}/application/logs/"
+        - "{{ chdir }}/public/gallery/"
+        - "{{ chdir }}/var/"
