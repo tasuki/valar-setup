@@ -10,7 +10,7 @@
     - name: Install dependencies
       become: true
       apt:
-        pkg: [ imagemagick, composer, php-mbstring, php-xml, php-imagick ]
+        pkg: [ imagemagick, composer, php-mbstring, php-xml, php-gd ]
 
     - name: Copy config file
       copy:
