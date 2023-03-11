@@ -1,7 +1,8 @@
 ---
 # Initial basics
-- import_playbook: playbooks/personalize.yml
+- import_playbook: playbooks/user.yml
 - import_playbook: playbooks/secure.yml
+- import_playbook: playbooks/personalize.yml
 
 # Deployments
 - import_playbook: playbooks/git-deployments.yml

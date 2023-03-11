@@ -11,7 +11,7 @@ Automating my cloud server.
 
 To set up a fresh server, create the user and set up sshd:
 
-    $ ansible-playbook -i inventory -l ulmo playbooks/user.yml
+    $ ansible-playbook -i inventory -l ulmo playbook-init.yml
 
 Then run the rest of the setup:
 

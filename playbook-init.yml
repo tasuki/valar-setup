@@ -1,0 +1,4 @@
+---
+# Create user, change ssh port, set up firewall, disallow root login
+- import_playbook: playbooks/user.yml ansible_ssh_user='root' ansible_ssh_port='22'
+- import_playbook: playbooks/secure.yml ansible_ssh_user='root' ansible_ssh_port='22'
