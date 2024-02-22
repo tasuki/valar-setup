@@ -14,7 +14,7 @@
         pkg:
           [ curl, bash, git, stow # necessary
           , mosh, tmux, tmuxinator, zsh, vim-nox, acl, htop, nethogs, units # traditional cli tools
-          , jq, fzf, fd-find, ripgrep, bat ] # hip cli tools
+          , neovim, jq, fzf, fd-find, ripgrep, bat ] # hip cli tools
 
     - name: Install delta
       become: true
