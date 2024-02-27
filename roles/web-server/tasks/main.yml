@@ -40,7 +40,7 @@
   lineinfile:
     path: "/etc/apache2/mods-available/deflate.conf"
     regex: "{{ item }}"
-    line: "\t\tAddOutputFilterByType DEFLATE {{ item }}"
+    line: "\tAddOutputFilterByType DEFLATE {{ item }}"
     insertafter: "<IfModule mod_filter.c>"
   loop:
     - "text/markdown"

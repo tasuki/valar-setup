@@ -11,7 +11,6 @@
       apt:
         pkg: [ ruby-full, bundler, build-essential ]
     - name: Bundle install
-      become: true
       bundler:
         chdir: "{{ chdir }}"
         state: present
