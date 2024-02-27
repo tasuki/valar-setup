@@ -3,6 +3,10 @@
   hosts: all
   become: true
   tasks:
+    - name: Update apt
+      apt:
+        update_cache: yes
+        cache_valid_time: 86400 # one day
     - name: Change sshd listen port and disable dangerous things
       lineinfile:
         path: "/etc/ssh/sshd_config"
