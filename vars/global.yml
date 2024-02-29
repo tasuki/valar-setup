@@ -1,5 +1,6 @@
 ---
 email: 'vit.brunner@gmail.com'
+php_version: "php8.2"
 projects:
   - { domain: 'org.tasuki', subdomain: 'blog' }
   - { domain: 'org.tasuki', subdomain: 'cv' }

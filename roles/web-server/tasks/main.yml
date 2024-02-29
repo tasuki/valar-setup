@@ -3,8 +3,18 @@
   apt:
     pkg:
       - apache2
-      - php
+      - php-fpm
       - cronolog
+
+- name: Disable apache modules
+  community.general.apache2_module:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    # these might need some handholding
+    - "{{ php_version }}"
+    - mpm_prefork
+  notify: Restart apache
 - name: Enable apache modules
   community.general.apache2_module:
     name: "{{ item }}"
@@ -14,10 +24,23 @@
     - ssl
     - proxy # namebase proxy
     - proxy_http # namebase proxy
+    - proxy_fcgi # required by php-fpm
     - headers
     - cache_disk
-    - cgi # awstats
+    - cgid # awstats
+    - mpm_event # for http2
+    - http2
   notify: Restart apache
+
+- name: Enabling conf
+  command: >
+    a2enconf {{ item }}
+  args:
+    creates: "/etc/apache2/conf-enabled/{{ item }}.conf"
+  when: item.state is not defined or item.state != 'absent'
+  with_items:
+    - "{{ php_version }}-fpm"
+
 - name: Add fallback index
   copy:
     src: html-index.php
