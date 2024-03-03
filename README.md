@@ -2,8 +2,11 @@ Automating my cloud server.
 
 ## Set up Ansible
 
-    $ sudo apt install ansible
-    $ ansible-galaxy collection install community.general
+Ansible keeps changing things. It needs to be managed:
+
+    $ virtualenv -p /usr/bin/python3.11 env
+    $ source env/bin/activate
+    $ pip install -r requirements.txt
 
     $ ansible -i inventory all -m ping
 
