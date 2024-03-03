@@ -2,44 +2,26 @@
 - name: Install Apache etc
   apt:
     pkg:
-      - apache2
       - php-fpm
+      - apache2
       - cronolog
 
-- name: Disable apache modules
-  community.general.apache2_module:
-    name: "{{ item }}"
-    state: absent
-  loop:
-    # these might need some handholding
-    - "{{ php_version }}"
-    - mpm_prefork
-  notify: Restart apache
 - name: Enable apache modules
   community.general.apache2_module:
     name: "{{ item }}"
     state: present
   loop:
+    - proxy_fcgi # required by php-fpm
+    - mpm_event # for http2
     - rewrite
     - ssl
     - proxy # namebase proxy
     - proxy_http # namebase proxy
-    - proxy_fcgi # required by php-fpm
     - headers
     - cache_disk
     - cgid # awstats
-    - mpm_event # for http2
     - http2
   notify: Restart apache
-
-- name: Enabling conf
-  command: >
-    a2enconf {{ item }}
-  args:
-    creates: "/etc/apache2/conf-enabled/{{ item }}.conf"
-  when: item.state is not defined or item.state != 'absent'
-  with_items:
-    - "{{ php_version }}-fpm"
 
 - name: Add fallback index
   copy:
