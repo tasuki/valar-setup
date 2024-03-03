@@ -22,4 +22,8 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 443, host: 1443
   config.vm.network "forwarded_port", guest: 678, host: 1678
   config.ssh.guest_port = 678 if provisioned?
+
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 4092 # for stack and ruby; prod doesn't have 4GB ram lol
+  end
 end
