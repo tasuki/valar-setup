@@ -10,10 +10,6 @@
       become: true
       apt:
         pkg: [ ruby-full, bundler, build-essential ]
-    - name: Bundle install
-      bundler:
-        chdir: "{{ chdir }}"
-        state: present
 
     - name: "Check whether {{ chdir }}/build/ exists"
       stat:

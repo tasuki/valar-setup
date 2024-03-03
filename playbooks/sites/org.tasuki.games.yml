@@ -41,6 +41,9 @@
       become: true
       apt:
         pkg: [ haskell-stack, libtinfo-dev, zlib1g-dev ]
+    - name: Make
+      make:
+        chdir: "{{ chdir }}/backend/"
     - name: Copy systemd service config
       become: true
       template:

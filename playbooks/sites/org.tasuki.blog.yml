@@ -10,10 +10,6 @@
       become: true
       apt:
         pkg: [ ruby-full, bundler, build-essential ]
-    - name: Bundle install
-      bundler: # gem install sassc -v '2.4.0' --source 'https://rubygems.org/'
-        chdir: "{{ chdir }}"
-        state: present
 
     - name: "Check whether {{ chdir }}/_site/ exists"
       stat:
