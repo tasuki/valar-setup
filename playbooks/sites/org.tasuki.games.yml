@@ -41,9 +41,16 @@
       become: true
       apt:
         pkg: [ haskell-stack, libtinfo-dev, zlib1g-dev ]
+    - name: "Check whether {{ chdir }}/backend/bin/game-comment-backend exists"
+      stat:
+        path: "{{ chdir }}/backend/bin/game-comment-backend"
+      register: generated_backend
     - name: Make
       make:
         chdir: "{{ chdir }}/backend/"
+      when: not generated_backend.stat.exists
+
+    # backend service
     - name: Copy systemd service config
       become: true
       template:
@@ -57,3 +64,10 @@
         name: game-comment
         state: started
         enabled: true
+    - name: Allow restarting the service without password
+      become: true
+      community.general.sudoers:
+        name: "{{ ansible_user_id }}-game-comment"
+        user: "{{ ansible_user_id }}"
+        commands:
+          - /bin/systemctl restart game-comment
