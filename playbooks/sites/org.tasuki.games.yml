@@ -70,4 +70,6 @@
         name: "{{ ansible_user_id }}-game-comment"
         user: "{{ ansible_user_id }}"
         commands:
+          - /bin/systemctl stop game-comment
+          - /bin/systemctl start game-comment
           - /bin/systemctl restart game-comment

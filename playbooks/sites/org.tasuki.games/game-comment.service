@@ -8,7 +8,7 @@ Restart=always
 RestartSec=10
 User={{ ansible_user_id }}
 WorkingDirectory=/var/www/org.tasuki/games/backend/
-ExecStart=/var/www/org.tasuki/games/backend/bin/game-comment-backend
+ExecStart=/var/www/org.tasuki/games/backend/bin/gc-server
 
 [Install]
 WantedBy=multi-user.target
