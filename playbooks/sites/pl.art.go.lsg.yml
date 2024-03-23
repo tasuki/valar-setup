@@ -11,7 +11,7 @@
     - name: Install dependencies
       become_user: root
       apt:
-        pkg: [ ruby-full, bundler, build-essential, python3-docutils, python3-bs4 ]
+        pkg: [ ruby-full, bundler, build-essential ]
     - name: Bundle install
       become_user: root
       bundler:
