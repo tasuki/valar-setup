@@ -41,9 +41,9 @@
       become: true
       apt:
         pkg: [ haskell-stack, libtinfo-dev, zlib1g-dev ]
-    - name: "Check whether {{ chdir }}/backend/bin/game-comment-backend exists"
+    - name: "Check whether {{ chdir }}/backend/bin/gc-server exists"
       stat:
-        path: "{{ chdir }}/backend/bin/game-comment-backend"
+        path: "{{ chdir }}/backend/bin/gc-server"
       register: generated_backend
     - name: Make
       make:
