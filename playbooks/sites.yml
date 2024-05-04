@@ -1,5 +1,6 @@
 # Set up *.tasuki.org
 - import_playbook: sites/org.tasuki.blog.yml
+- import_playbook: sites/org.tasuki.continugo.yml
 - import_playbook: sites/org.tasuki.cv.yml
 - import_playbook: sites/org.tasuki.enchiridion.yml
 - import_playbook: sites/org.tasuki.fonts.yml

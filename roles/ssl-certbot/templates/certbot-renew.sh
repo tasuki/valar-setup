@@ -5,6 +5,7 @@ certbot certonly \
     --renew-by-default --apache \
   -d tasuki.org \
   -d blog.tasuki.org \
+  -d continugo.tasuki.org \
   -d cv.tasuki.org \
   -d enchiridion.tasuki.org \
   -d fonts.tasuki.org \

@@ -3,6 +3,7 @@ email: 'vit.brunner@gmail.com'
 php_version: "php8.2"
 projects:
   - { domain: 'org.tasuki', subdomain: 'blog' }
+  - { domain: 'org.tasuki', subdomain: 'continugo' }
   - { domain: 'org.tasuki', subdomain: 'cv' }
   - { domain: 'org.tasuki', subdomain: 'enchiridion' }
   - { domain: 'org.tasuki', subdomain: 'fonts' }
