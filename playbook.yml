@@ -8,12 +8,12 @@
 - import_playbook: playbooks/git-deployments.yml
 - import_playbook: playbooks/deploy-users.yml
 
-# SSL & Web Server
-- import_playbook: playbooks/ssl.yml
-- import_playbook: playbooks/web-server.yml
-
 # Contents of websites
 - import_playbook: playbooks/sites.yml
+
+# Web Server & SSL
+- import_playbook: playbooks/web-server.yml
+- import_playbook: playbooks/ssl.yml
 
 # Analytics & Monitoring
 - import_playbook: playbooks/analytics.yml

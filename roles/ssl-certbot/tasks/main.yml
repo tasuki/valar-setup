@@ -13,9 +13,11 @@
     src: "certbot-renew.sh"
     dest: "/usr/local/bin/certbot-renew.sh"
     mode: '755'
+  notify: rerun_certbot
 - name:
   lineinfile:
     path: "/etc/crontab"
     regex: "certbot"
     line: >-
       52 6    1 * *   root    sh /usr/local/bin/certbot-renew.sh
+  notify: rerun_certbot
