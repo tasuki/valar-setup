@@ -3,6 +3,8 @@
   vars:
     repo: https://github.com/tasuki/game-comment.git
     chdir: /var/www/org.tasuki/games
+  vars_files:
+    - ../../vars/vault.yml
   tasks:
 
     # clone
@@ -41,6 +43,10 @@
       become: true
       apt:
         pkg: [ haskell-stack, libtinfo-dev, zlib1g-dev ]
+    - name: "Set up the app environment"
+      template:
+        src: "org.tasuki.games/.env"
+        dest: "{{ chdir }}/backend/.env"
     - name: "Check whether {{ chdir }}/backend/bin/gc-server exists"
       stat:
         path: "{{ chdir }}/backend/bin/gc-server"
