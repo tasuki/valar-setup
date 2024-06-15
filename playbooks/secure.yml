@@ -31,6 +31,7 @@
         - "80"  # http
         - "443" # https
         - "678" # ssh
+        - "6789" # ssh proxy balrog
     - name: Allow udp ports for mosh
       community.general.ufw:
         rule: allow
