@@ -24,10 +24,4 @@
         owner: "{{ username }}"
         group: "{{ username }}"
         mode: "700"
-        content: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4/NV9LR/yxCFfoP5RRTsLx\
-          OQF0PD+kNjbK8mUl8m2syTO8WvfHKyqw/jwligoeortVcWs+Ufm9HSgD7ZKFmucGvTo92\
-          0mgGEv82L8Uy/t1KJwXeK6uRwqPSi3SwZm8HUavFxm3kxLD/N//l7RengS8ndKkPY6ami\
-          FV+DBScYcJz/EFyXhDicbPUaLekzZFicgAsanFZtAuVZHRWr927t4hu1oDswMdX+gWORY\
-          39IBeiczt7fIzwlFQijZa9qpVZwcqYL6rCDucleqCEiWJsBWtf8KlSXZQCGjL0Fmmd5sj\
-          IoPKELMoT9ibwDMbHE/Q2LZZmZzn5jiIJllphXAYwN1\n\
-          ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFVDwsBN8MVftFAQtbLqckNvXwHRGbksNTMchlwXxvit\n"
+        content: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFVDwsBN8MVftFAQtbLqckNvXwHRGbksNTMchlwXxvit\n"
