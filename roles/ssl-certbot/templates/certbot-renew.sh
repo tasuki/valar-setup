@@ -24,3 +24,9 @@ certbot certonly \
     --agree-tos --email {{ email }} \
     --renew-by-default --apache \
   -d lsg.go.art.pl
+
+certbot certonly \
+    --agree-tos --email {{ email }} \
+    --renew-by-default --apache \
+  -d ocascata.cz \
+  -d www.ocascata.cz

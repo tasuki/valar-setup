@@ -20,3 +20,6 @@
 
 # Set up lsg.go.art.pl
 - import_playbook: sites/pl.art.go.lsg.yml
+
+# Set up ocascata.cz
+- import_playbook: sites/cz.ocascata.www.yml

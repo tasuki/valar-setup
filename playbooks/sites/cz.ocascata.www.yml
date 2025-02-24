@@ -1,0 +1,8 @@
+- name: Set up www.ocascata.cz
+  hosts: all
+  vars:
+    repo: https://github.com/tasuki/ocascata.git
+    chdir: /var/www/cz.ocascata/www
+  tasks:
+    - name: "Clone {{ repo }} to {{ chdir }}"
+      import_tasks: ../../roles/git-deployments/tasks/clone.yml
