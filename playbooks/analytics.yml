@@ -1,4 +1,4 @@
-- name: Set up git deployments
+- name: Set up analytics
   hosts: all
   become: true
   vars_files:
