@@ -1,4 +1,3 @@
----
 - name: Install Apache etc
   apt:
     pkg:

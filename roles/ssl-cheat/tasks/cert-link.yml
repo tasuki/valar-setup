@@ -1,4 +1,3 @@
----
 - name: "Copy key file"
   copy:
     src: "keys/{{ domain }}/{{ pemname }}1.pem"

@@ -1,4 +1,3 @@
----
 - name: Create live directory
   file:
     path: "/etc/letsencrypt/live/{{ domain }}"

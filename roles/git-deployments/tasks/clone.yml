@@ -1,4 +1,3 @@
----
 - name: "Clone {{ repo }} to {{ chdir }}"
   git:
     bare: true

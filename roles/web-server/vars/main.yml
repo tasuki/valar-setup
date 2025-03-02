@@ -1,2 +1,1 @@
----
 htpasswd_vita_pass: "{{ vault_htpasswd_vita_pass }}"

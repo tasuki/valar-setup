@@ -1,4 +1,3 @@
----
 - name: Create protected directories
   file:
     path: "{{ item.path }}"

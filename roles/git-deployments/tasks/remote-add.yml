@@ -1,4 +1,3 @@
----
 - name: Add {{ name }} remote
   command:
     cmd: "git remote add {{ name }} {{ repo }}"

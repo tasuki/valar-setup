@@ -1,4 +1,3 @@
----
 - name: Install certbot
   apt:
     pkg:

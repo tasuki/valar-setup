@@ -1,4 +1,3 @@
----
 - name: Monitoring with Munin
   hosts: all
   become: true
