@@ -2,9 +2,14 @@ Automating my cloud server.
 
 ## Set up Ansible
 
-Ansible keeps changing things. It needs to be managed:
+Ansible keeps changing things. It needs to be managed.
+So does Python. It also need to be managed.
+Use `mise` to get python 3.11...
 
-    $ virtualenv -p /usr/bin/python3.11 env
+    $ virtualenv -p ~/.local/share/mise/installs/python/3.11/bin/python env
+
+Now we can fly...
+
     $ source env/bin/activate
     $ pip install -r requirements.txt
 
