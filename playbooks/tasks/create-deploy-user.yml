@@ -1,0 +1,34 @@
+- name: Create user {{ deploy_user.username }}
+  user:
+    name: "{{ deploy_user.username }}"
+    password: "*"
+    shell: "/usr/bin/git-shell"
+    state: present
+
+- name: Create /home/{{ deploy_user.username }}/.ssh/
+  file:
+    path: "/home/{{ deploy_user.username }}/.ssh/"
+    state: directory
+    owner: "{{ deploy_user.username }}"
+    group: "{{ deploy_user.username }}"
+    mode: "700"
+
+- name: Authorize pubkey for {{ deploy_user.username }}
+  copy:
+    dest: "/home/{{ deploy_user.username }}/.ssh/authorized_keys"
+    owner: "{{ deploy_user.username }}"
+    group: "{{ deploy_user.username }}"
+    mode: "600"
+    content: "{{ deploy_user.pubkey }}"
+
+- name: Recursively change owner for git/www paths for {{ deploy_user.username }}
+  file:
+    dest: "{{ project_path }}"
+    owner: "{{ deploy_user.username }}"
+    group: "{{ deploy_user.username }}"
+    recurse: true
+    follow: false
+  loop: "{{ deploy_user.project_paths }}"
+  loop_control:
+    loop_var: project_path
+    label: "Setting ownership for {{ project_path }}"

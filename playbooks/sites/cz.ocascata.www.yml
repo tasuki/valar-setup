@@ -1,5 +1,7 @@
 - name: Set up www.ocascata.cz
   hosts: all
+  become: true
+  become_user: deploy_ocascata
   vars:
     repo: https://github.com/tasuki/ocascata.git
     chdir: /var/www/cz.ocascata/www

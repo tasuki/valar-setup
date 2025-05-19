@@ -2,6 +2,10 @@
   file:
     path: "/var/www/{{ item.domain }}/{{ item.subdomain }}"
     state: directory
+- name: Trust and don't verify git
+  command: "git config --global --add safe.directory /var/git/{{ item.domain }}/{{ item.subdomain }}"
+- name: Trust and don't verify www
+  command: "git config --global --add safe.directory /var/www/{{ item.domain }}/{{ item.subdomain }}"
 - name: Create repo
   command: "git init /var/www/{{ item.domain }}/{{ item.subdomain }}"
   args:
