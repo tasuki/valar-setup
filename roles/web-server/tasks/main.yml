@@ -22,6 +22,8 @@
     - http2
   notify: Restart apache
 
+# TODO this here might require `sudo a2enconf php{version}-fpm.conf`
+
 - name: Add fallback index
   copy:
     src: html-index.php
