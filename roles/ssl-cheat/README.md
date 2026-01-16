@@ -4,13 +4,12 @@ Useful for local development. Files unreachable directly.
 
 ## Eg:
 
-1. On the server: `$ cp -L /etc/letsencrypt/live/tasuki.org/*.pem ~`
+1. On the server: `sudo cp -Lr /etc/letsencrypt/live/ ~ && sudo chown -R vita: ~/live/`
 2. Locally:
 
     ```
-    rm roles/ssl-cheat/files/keys/tasuki.org/*
-    scp "ulmo:~/*.pem" roles/ssl-cheat/files/keys/tasuki.org
-    (cd roles/ssl-cheat/files/keys/tasuki.org; for i in `ls`; do mv $i `echo $i | sed -e 's/.pem/1.pem/g'`; done)
+    rm -r roles/ssl-cheat/files/keys/*
+    scp -r "ulmo:~/live/*" roles/ssl-cheat/files/keys/
     ```
 
 3. Remove files on the server: `$ rm ~/*.pem`

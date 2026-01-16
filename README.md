@@ -1,4 +1,4 @@
-Automating my cloud server.
+# Automating my cloud server.
 
 ## Set up Ansible
 
@@ -44,13 +44,12 @@ Afaics right now, the following need manual setup:
 
 ## Develop
 
-    $ sudo apt install virtualbox vagrant
-    $ vagrant up
+    $ sudo apt install podman
+    $ ./dev.setup.sh
 
 ### Provision
 
-    $ vagrant provision
-    $ ansible-playbook -i inventory -l dev --vault-id .vault_pass playbook.yml
+    $ ansible-playbook -i inventory -l cloud-dev --vault-id .vault_pass playbook.yml
 
 ### Test
 

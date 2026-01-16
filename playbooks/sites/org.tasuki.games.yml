@@ -13,6 +13,7 @@
 
     # frontend
     - name: Download Elm 0.19.1
+      become: true
       shell: "curl -L https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz | gunzip > elm"
       args:
         creates: elm
@@ -38,11 +39,23 @@
         chdir: "{{ chdir }}/frontend/"
       when: not generated_js.stat.exists
 
-    # backend
-    - name: Install Haskell dependencies
+    # backend service
+    - name: Copy systemd service config
       become: true
-      apt:
-        pkg: [ haskell-stack, libtinfo-dev, zlib1g-dev ]
+      template:
+        src: "org.tasuki.games/game-comment.service"
+        dest: "/etc/systemd/system"
+    - name: Allow restarting the service without password
+      become: true
+      community.general.sudoers:
+        name: "{{ ansible_user_id }}-game-comment"
+        user: "{{ ansible_user_id }}"
+        commands:
+          - /bin/systemctl stop game-comment
+          - /bin/systemctl start game-comment
+          - /bin/systemctl restart game-comment
+
+    # backend
     - name: "Set up the app environment"
       template:
         src: "org.tasuki.games/.env"
@@ -56,12 +69,7 @@
         chdir: "{{ chdir }}/backend/"
       when: not generated_backend.stat.exists
 
-    # backend service
-    - name: Copy systemd service config
-      become: true
-      template:
-        src: "org.tasuki.games/game-comment.service"
-        dest: "/etc/systemd/system"
+    # start backend service
     - name: Start the game-comment service now and at system startup
       become: true
       systemd:
@@ -70,12 +78,3 @@
         name: game-comment
         state: started
         enabled: true
-    - name: Allow restarting the service without password
-      become: true
-      community.general.sudoers:
-        name: "{{ ansible_user_id }}-game-comment"
-        user: "{{ ansible_user_id }}"
-        commands:
-          - /bin/systemctl stop game-comment
-          - /bin/systemctl start game-comment
-          - /bin/systemctl restart game-comment
