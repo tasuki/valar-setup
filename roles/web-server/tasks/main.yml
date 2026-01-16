@@ -21,8 +21,10 @@
     - cgid # awstats
     - http2
   notify: Restart apache
-
-# TODO this here might require `sudo a2enconf php{version}-fpm.conf`
+- name: Enable default ssl
+  command: "a2enconf {{ php_version }}-fpm.conf"
+  args:
+    creates: /etc/apache2/conf-enabled/{{ php_version }}-fpm.conf
 
 - name: Add fallback index
   copy:
