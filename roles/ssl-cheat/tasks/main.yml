@@ -13,3 +13,6 @@
 - include_tasks: domain.yml
   vars:
     domain: lsg.go.art.pl
+- include_tasks: domain.yml
+  vars:
+    domain: ocascata.cz

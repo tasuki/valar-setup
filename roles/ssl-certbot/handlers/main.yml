@@ -1,2 +1,3 @@
 - name: rerun_certbot
   shell: /usr/local/bin/certbot-renew.sh
+  when: env == 'prod'

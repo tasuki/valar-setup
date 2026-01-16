@@ -9,6 +9,7 @@
       import_tasks: ../../roles/git-deployments/tasks/clone.yml
 
     - name: Download Elm 0.19.1
+      become: true
       shell: "curl -L https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz | gunzip > elm"
       args:
         creates: elm
