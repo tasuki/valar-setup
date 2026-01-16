@@ -4,28 +4,12 @@
     repo: https://github.com/tasuki/continugo.git
     chdir: /var/www/org.tasuki/continugo
   tasks:
-    # clone
     - name: "Clone {{ repo }} to {{ chdir }}"
       import_tasks: ../../roles/git-deployments/tasks/clone.yml
 
-    - name: Download Elm 0.19.1
-      become: true
-      shell: "curl -L https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz | gunzip > elm"
-      args:
-        creates: elm
     - name: Install Elm
-      become: true
-      copy:
-        src: elm
-        remote_src: true
-        dest: /usr/local/bin/elm
-        mode: '755'
-        owner: root
-        group: root
-    - name: Uglifier
-      become: true
-      apt:
-        pkg: [ uglifyjs ]
+      import_tasks: ../tasks/install-elm.yml
+
     - name: "Check whether {{ chdir }}/continugo.js exists"
       stat:
         path: "{{ chdir }}/continugo.js"

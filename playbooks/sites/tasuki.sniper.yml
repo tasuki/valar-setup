@@ -1,27 +1,15 @@
 - name: Set up sniper.tasuki (@handshake)
   hosts: all
-  become: true
   vars:
     repo: https://github.com/tasuki/sniper.git
     chdir: /var/www/tasuki/sniper
   tasks:
-    - name: Download Elm 0.19.1
-      become: true
-      shell: "curl -L https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz | gunzip > elm"
-      args:
-        creates: elm
-    - name: Install Elm
-      become: true
-      copy:
-        src: elm
-        remote_src: true
-        dest: /usr/local/bin/elm
-        mode: '755'
-        owner: root
-        group: root
-
     - name: "Clone {{ repo }} to {{ chdir }}"
       import_tasks: ../../roles/git-deployments/tasks/clone.yml
+
+    - name: Install Elm
+      import_tasks: ../tasks/install-elm.yml
+
     - name: "Check whether {{ chdir }}/sniper.js exists"
       stat:
         path: "{{ chdir }}/sniper.js"
