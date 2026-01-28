@@ -21,6 +21,13 @@
     - cgid # awstats
     - http2
   notify: Restart apache
+
+- name: Start PHP-FPM (for podman, unnecessary w/ systemd)
+  service:
+    name: "{{ php_version }}-fpm"
+    state: started
+    enabled: yes
+
 - name: Enable default ssl
   command: "a2enconf {{ php_version }}-fpm.conf"
   args:
