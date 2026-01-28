@@ -44,14 +44,23 @@
       template:
         src: "org.tasuki.games/.env"
         dest: "{{ chdir }}/backend/.env"
-    - name: "Check whether {{ chdir }}/backend/bin/gc-server exists"
-      stat:
-        path: "{{ chdir }}/backend/bin/gc-server"
-      register: generated_backend
-    - name: Make
-      make:
-        chdir: "{{ chdir }}/backend/"
-      when: not generated_backend.stat.exists
+    - name: Create bin directory
+      file:
+        path: "{{ chdir }}/backend/bin/"
+        state: directory
+        mode: "755"
+    - name: "Download latest gc-migrate"
+      get_url:
+        force: true
+        url: "https://github.com/tasuki/game-comment/releases/latest/download/gc-migrate"
+        dest: "{{ chdir }}/backend/bin/gc-migrate"
+        mode: '0755'
+    - name: "Download latest gc-server"
+      get_url:
+        force: true
+        url: "https://github.com/tasuki/game-comment/releases/latest/download/gc-server"
+        dest: "{{ chdir }}/backend/bin/gc-server"
+        mode: '0755'
 
     # start backend service
     - name: Start the game-comment service now and at system startup
