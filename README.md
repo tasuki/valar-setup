@@ -36,11 +36,17 @@ Then run the rest of the setup:
 
 ### Manually
 
-Afaics right now, the following need manual setup:
+The untracked content:
 
-- gallery.tasuki.org: all teh photo files
-- tmp.tasuki.org: all teh random files
-- domains.tasuki: the `listed.json`
+- /var/www/org.tasuki/games/backend/game-comment.sqlite3: the db
+- /var/www/org.tasuki/gallery/public/gallery/*: all teh photo files
+- /var/www/org.tasuki/tmp/*: all teh random files
+- /var/www/tasuki/domains/listed.json: the `listed.json`
+
+The system things:
+
+- /var/lib/awstats/*: the stats
+- /var/log/apache2/*: maybe the apache logs
 
 ## Develop
 
