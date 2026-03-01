@@ -11,6 +11,7 @@ projects:
   - { domain: 'org.tasuki', subdomain: 'games' }
   - { domain: 'org.tasuki', subdomain: 'golem' }
   - { domain: 'org.tasuki', subdomain: 'masonry-ordered' }
+  - { domain: 'org.tasuki', subdomain: 'maze' }
   - { domain: 'org.tasuki', subdomain: 'system' }
   - { domain: 'org.tasuki', subdomain: 'tmp' }
   - { domain: 'org.tasuki', subdomain: 'tsumego' }

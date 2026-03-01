@@ -1,0 +1,21 @@
+- name: Set up maze.tasuki.org
+  hosts: all
+  vars:
+    repo: https://github.com/tasuki/iso-maze.git
+    chdir: /var/www/org.tasuki/maze
+  tasks:
+    - name: "Clone {{ repo }} to {{ chdir }}"
+      import_tasks: ../../roles/git-deployments/tasks/clone.yml
+    - name: Install dependencies
+      become: true
+      apt:
+        pkg: [ npm ]
+
+    - name: "Check whether {{ chdir }}/continugo.js exists"
+      stat:
+        path: "{{ chdir }}/dist/index.html"
+      register: generated
+    - name: Make
+      make:
+        chdir: "{{ chdir }}"
+      when: not generated.stat.exists
