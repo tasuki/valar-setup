@@ -1,6 +1,6 @@
 #!/bin/bash
 
-podman build -t debian-dev -f dev.Containerfile .
+podman build -t debian-dev -f Containerfile .
 
 podman run -d \
   --name cloud-dev \

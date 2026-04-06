@@ -51,7 +51,7 @@ The system things:
 ## Develop
 
     $ sudo apt install podman
-    $ ./dev.setup.sh
+    $ ./setup.sh
 
 ### Provision
 
