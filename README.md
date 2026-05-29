@@ -41,7 +41,7 @@ The untracked content:
 - /var/www/org.tasuki/games/backend/game-comment.sqlite3: the db
 - /var/www/org.tasuki/gallery/public/gallery/*: all teh photo files
 - /var/www/org.tasuki/tmp/*: all teh random files
-- /var/www/tasuki/domains/listed.json: the `listed.json`
+- /var/www/org.tasuki/system/yliw/: life in weeks lookin' for a better home
 
 The system things:
 
