@@ -6,8 +6,7 @@
   tasks:
     - name: "Clone {{ repo }} to {{ chdir }}"
       import_tasks: ../../roles/git-deployments/tasks/clone.yml
-
-    - name: Install dependencies
+    - name: Install packages
       become: true
       apt:
         pkg: [ imagemagick, composer, php-mbstring, php-xml, php-gd ]
@@ -16,13 +15,14 @@
       copy:
         src: "org.tasuki.gallery/.env.local"
         dest: "{{ chdir }}"
-    - name: Writable gallery and var dir
-      become: true
-      file:
-        path: "{{ item }}"
-        owner: www-data
-        group: www-data
-        recurse: true
-      loop:
-        - "{{ chdir }}/public/gallery/"
-        - "{{ chdir }}/var/"
+
+    - name: "Check whether {{ chdir }}/vendor/ exists"
+      stat:
+        path: "{{ chdir }}/vendor/"
+      register: dependencies_dir
+    - name: Install composer dependencies
+      make:
+        chdir: "{{ chdir }}"
+      environment:
+        COMPOSER_ALLOW_SUPERUSER: 1
+      when: not dependencies_dir.stat.exists
