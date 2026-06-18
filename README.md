@@ -23,16 +23,16 @@ To set up a fresh server, create the user and set up sshd:
 
 Then run the rest of the setup:
 
-    $ ansible-playbook -i inventory -l ulmo -K --vault-id .vault_pass playbook.yml
+    $ ansible-playbook -i inventory -l ulmo -K --vault-id ../vault-valar playbook.yml
 
 ### Secrets
 
-    $ echo "password" > .vault_pass # not actual password :)
-    $ ansible-vault edit --vault-id .vault_pass vars/vault.yml
+    $ echo "password" > ../vault-valar # not actual password :)
+    $ ansible-vault edit --vault-id ../vault-valar vars/vault.yml
 
 ### Run just one playbook
 
-    $ ansible-playbook -i inventory -l ulmo -K --vault-id .vault_pass playbooks/sites/org.tasuki.gallery.yml
+    $ ansible-playbook -i inventory -l ulmo -K --vault-id ../vault-valar playbooks/sites/org.tasuki.gallery.yml
 
 ### Manually
 
