@@ -24,6 +24,10 @@
       when: not generated_js.stat.exists
 
     # backend service
+    - name: Install packages
+      become: true
+      apt:
+        pkg: [ haskell-stack, libtinfo-dev, zlib1g-dev ]
     - name: Copy systemd service config
       become: true
       template:
@@ -49,18 +53,9 @@
         path: "{{ chdir }}/backend/bin/"
         state: directory
         mode: "755"
-    - name: "Download latest gc-migrate"
-      get_url:
-        force: true
-        url: "https://github.com/tasuki/game-comment/releases/latest/download/gc-migrate"
-        dest: "{{ chdir }}/backend/bin/gc-migrate"
-        mode: '0755'
-    - name: "Download latest gc-server"
-      get_url:
-        force: true
-        url: "https://github.com/tasuki/game-comment/releases/latest/download/gc-server"
-        dest: "{{ chdir }}/backend/bin/gc-server"
-        mode: '0755'
+    - name: Make
+      make:
+        chdir: "{{ chdir }}/backend/"
 
     # start backend service
     - name: Start the game-comment service now and at system startup
