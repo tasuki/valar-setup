@@ -1,0 +1,2 @@
+SECRET_KEY_BASE={{ rtgo_secret_key_base }}
+SIGN_KEY={{ rtgo_sign_key }}

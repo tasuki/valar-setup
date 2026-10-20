@@ -1,0 +1,96 @@
+- name: Set up rtgo.tasuki.org
+  hosts: all
+  vars:
+    repo: https://github.com/tasuki/rtgo.git
+    chdir: /var/www/org.tasuki/rtgo
+    rtgo_image: localhost/rtgo:latest
+  vars_files:
+    - ../../vars/vault.yml
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.local/bin:{{ ansible_env.PATH }}"
+    MISE_TRUSTED_CONFIG_PATHS: "{{ chdir }}"
+  tasks:
+    - name: Install Podman
+      become: true
+      apt:
+        pkg: podman
+
+    - name: Create persistent rtgo storage
+      become: true
+      file:
+        path: "{{ chdir }}/data"
+        state: directory
+        owner: '65534'
+        group: '65534'
+        mode: '755'
+
+    - name: Set up the rtgo environment
+      become: true
+      template:
+        src: org.tasuki.rtgo/environment
+        dest: "{{ chdir }}/.env"
+        owner: root
+        group: root
+        mode: '600'
+      no_log: true
+      diff: false
+      notify: Restart rtgo
+
+    - name: Install rtgo systemd service
+      become: true
+      template:
+        src: org.tasuki.rtgo/rtgo.service
+        dest: /etc/systemd/system/rtgo.service
+        owner: root
+        group: root
+        mode: '644'
+      notify: Restart rtgo
+
+    - name: Allow building and restarting rtgo without a password
+      become: true
+      community.general.sudoers:
+        name: "{{ ansible_user_id }}-rtgo"
+        user: "{{ ansible_user_id }}"
+        commands:
+          - /usr/bin/podman build -t rtgo -f Containerfile .
+          - /bin/systemctl restart rtgo
+
+    - name: Reload systemd before deploying from the hook
+      become: true
+      systemd:
+        daemon_reload: true
+
+    - name: "Clone {{ repo }} to {{ chdir }}"
+      import_tasks: ../../roles/git-deployments/tasks/clone.yml
+
+    - name: Trust the rtgo Mise configuration for future Git hooks
+      command: mise trust {{ chdir }}/mise.toml
+      changed_when: false
+
+    - name: Check whether the local rtgo image exists
+      become: true
+      command: podman image exists {{ rtgo_image }}
+      register: rtgo_image_exists
+      changed_when: false
+      failed_when: rtgo_image_exists.rc not in [0, 1]
+
+    - name: Build and deploy rtgo if the local image is missing
+      command: mise run --skip-tools deploy
+      args:
+        chdir: "{{ chdir }}"
+      when: rtgo_image_exists.rc == 1
+
+    - name: Start rtgo now and at system startup
+      become: true
+      systemd:
+        name: rtgo
+        state: started
+        enabled: true
+
+  handlers:
+    - name: Restart rtgo
+      become: true
+      systemd:
+        daemon_reload: true
+        name: rtgo
+        state: restarted

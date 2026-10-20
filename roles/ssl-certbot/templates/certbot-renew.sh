@@ -14,6 +14,7 @@ certbot certonly \
   -d golem.tasuki.org \
   -d masonry-ordered.tasuki.org \
   -d maze.tasuki.org \
+  -d rtgo.tasuki.org \
   -d system.tasuki.org \
   -d tmp.tasuki.org \
   -d tsumego.tasuki.org \
