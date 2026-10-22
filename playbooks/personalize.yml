@@ -11,7 +11,7 @@
       become: true
       apt:
         pkg:
-          [ curl, bash, git, stow # necessary
+          [ curl, wget, bash, git, stow # necessary
           , mosh, tmux, tmuxinator, zsh, zsh-autosuggestions, zsh-syntax-highlighting, vim-nox, acl, htop, nethogs, units # traditional cli tools
           , neovim, jq, fzf, fd-find, ripgrep, bat ] # hip cli tools
 
@@ -19,6 +19,14 @@
       shell: curl -s https://raw.githubusercontent.com/tasuki/dotrc/master/install.sh | bash
       args:
         creates: ~/dotrc/
+
+    - name: Mise
+      shell: ./install/mise.sh
+      args:
+        chdir: "{{ ansible_env.HOME }}/dotrc"
+        creates: ~/.local/bin/mise
+      environment:
+        PATH: "{{ ansible_env.HOME }}/.local/bin:{{ ansible_env.PATH }}"
 
     - name: Use zsh as shell
       become: true
