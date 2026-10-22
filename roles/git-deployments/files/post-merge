@@ -1,3 +1,10 @@
 #!/bin/sh
 
-make
+PATH="$HOME/.local/bin:$PATH"
+export PATH
+
+if [ -f Makefile ]; then
+	exec make
+elif [ -f mise.toml ]; then
+	exec mise run --skip-tools deploy
+fi

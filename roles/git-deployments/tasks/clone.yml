@@ -4,6 +4,7 @@
     repo: "{{ repo }}"
     dest: "{{ chdir | regex_replace('^/var/www/', '/var/git/') }}"
     version: master
+  register: repo_updated
 - name: Symlink post-update hook
   file:
     src: "/var/git/hooks/post-update"
@@ -14,4 +15,4 @@
   command:
     cmd: "{{ chdir | regex_replace('^/var/www/', '/var/git/') }}/hooks/post-update"
     chdir: "{{ chdir | regex_replace('^/var/www/', '/var/git/') }}"
-  when: symlinked.changed
+  when: symlinked.changed or repo_updated.changed
