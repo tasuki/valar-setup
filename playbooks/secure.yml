@@ -21,6 +21,12 @@
       community.general.ufw:
         state: enabled
         policy: deny
+    - name: Allow outbound traffic from the Podman bridge
+      community.general.ufw:
+        rule: allow
+        route: true
+        interface_in: podman0
+        interface_out: "{{ ansible_default_ipv4.interface }}"
     - name: Allow tcp ports
       community.general.ufw:
         rule: allow
